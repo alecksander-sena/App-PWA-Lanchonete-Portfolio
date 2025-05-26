@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import App from './App'
-import AdminPage from './pages/AdminPage'    // vamos criar esse arquivo já já
+import AdminPage from './pages/AdminPage.tsx'    // vamos criar esse arquivo já já
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

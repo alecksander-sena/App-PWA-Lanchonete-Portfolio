@@ -4,6 +4,8 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ...restante do seu CSS (variáveis, customizações, etc)... */
+
 :root {
   --background: 0 0% 100%;
   --foreground: 0 0% 3.9%;

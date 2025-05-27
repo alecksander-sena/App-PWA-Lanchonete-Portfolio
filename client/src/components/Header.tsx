@@ -1,4 +1,3 @@
-// client/src/components/Header.tsx
 import { useCart } from '@/context/CartContext';
 
 interface HeaderProps {
@@ -26,19 +25,19 @@ export default function Header({ openCart }: HeaderProps) {
           <img
             src="/android-chrome-192x192.png"
             alt="PedidosFácil Logo"
-            className="h-10 w-10 rounded-full object-cover"
+            className="h-12 w-12 rounded-full object-cover"
             style={{ background: '#fff' }}
           />
-          <h1 className="font-montserrat font-bold text-xl text-black">PedidosFácil</h1>
+          <h1 className="font-sans font-bold text-4xl text-black">Pedidos Fácil</h1>
         </div>
 
-        {/* Categorias como menu */}
-        <nav className="flex gap-2">
+        {/* Menu de navegação com categorias */}
+        <nav className="flex gap-1">
           {categorias.map(cat => (
             <a
               key={cat.id}
               href={`#${cat.id}`}
-              className="font-raleway px-3 py-1 rounded-full bg-gray-100 text-gray-800 hover:bg-[#af1a2d] hover:text-white transition-colors"
+              className="font-sans text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-800 hover:bg-[#af1a2d] hover:text-white transition-colors"
             >
               {cat.nome}
             </a>

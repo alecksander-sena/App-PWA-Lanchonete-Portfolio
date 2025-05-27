@@ -10,9 +10,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        montserrat: ["Montserrat", "sans-serif"],
-        // se quiser manter as fontes padrão do Tailwind:
-        sans: ["Montserrat", ...fontFamily.sans],
+        sans: ["Inter", ...fontFamily.sans],
       },
       borderRadius: {
         lg: "var(--radius)",

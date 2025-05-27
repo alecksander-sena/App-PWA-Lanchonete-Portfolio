@@ -127,13 +127,13 @@ export default function Home() {
     );
   };
 
-  // Atualize a categoria ao clicar no menu do header
-  // O Header não recebe mais setSelectedCategory, você pode usar um contexto se quiser comunicação direta.
-  // Aqui, vamos deixar o controle só para o Home.
-
   return (
     <div className="bg-gray-50 min-h-screen">
-      <Header openCart={openCart} />
+      <Header
+        openCart={openCart}
+        onSelectCategory={setSelectedCategory}
+        selectedCategory={selectedCategory}
+      />
       <main className="container mx-auto px-4 py-6 relative">
         {/* Barra de busca e filtros */}
         <div className="flex justify-between items-center mb-6">

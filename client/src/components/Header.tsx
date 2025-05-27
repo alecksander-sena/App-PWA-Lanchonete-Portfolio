@@ -1,7 +1,10 @@
+import { useState } from 'react';
 import { useCart } from '@/context/CartContext';
 
 interface HeaderProps {
   openCart: () => void;
+  onSelectCategory: (category: string) => void;
+  selectedCategory: string;
 }
 
 const categorias = [
@@ -14,12 +17,27 @@ const categorias = [
   { nome: "Adicionais", id: "adicionais" }
 ];
 
-export default function Header({ openCart }: HeaderProps) {
+export default function Header({ openCart, onSelectCategory, selectedCategory }: HeaderProps) {
   const { totalItems } = useCart();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // Função para alternar menu no mobile
+  const toggleMenu = () => setMenuOpen(!menuOpen);
 
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
       <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+        {/* Botão de menu no mobile */}
+        <button
+          className="mr-3 p-2 rounded-md hover:bg-gray-100 focus:outline-none md:hidden"
+          onClick={toggleMenu}
+          aria-label="Abrir menu"
+        >
+          <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path strokeLinecap="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+
         {/* Logo e Nome */}
         <div className="flex items-center gap-3">
           <img
@@ -31,16 +49,18 @@ export default function Header({ openCart }: HeaderProps) {
           <h1 className="font-sans font-bold text-4xl text-black">Pedidos Fácil</h1>
         </div>
 
-        {/* Menu de navegação com categorias */}
-        <nav className="flex gap-1">
+        {/* Menu de categorias */}
+        <nav className="hidden md:flex gap-1">
           {categorias.map(cat => (
-            <a
+            <button
               key={cat.id}
-              href={`#${cat.id}`}
-              className="font-sans text-xs px-3 py-1 rounded-full bg-gray-100 text-gray-800 hover:bg-[#af1a2d] hover:text-white transition-colors"
+              onClick={() => onSelectCategory(cat.nome)}
+              className={`font-sans text-xs px-3 py-1 rounded-full 
+                ${selectedCategory === cat.nome ? 'bg-[#af1a2d] text-white' : 'bg-gray-100 text-gray-800 hover:bg-[#af1a2d] hover:text-white'} 
+                transition-colors`}
             >
               {cat.nome}
-            </a>
+            </button>
           ))}
         </nav>
 
@@ -54,6 +74,26 @@ export default function Header({ openCart }: HeaderProps) {
           </button>
         </div>
       </div>
+
+      {/* Menu de categorias no mobile */}
+      {menuOpen && (
+        <nav className="md:hidden bg-white shadow-md border-t flex flex-wrap gap-1 px-4 py-2 justify-center">
+          {categorias.map(cat => (
+            <button
+              key={cat.id}
+              onClick={() => {
+                onSelectCategory(cat.nome);
+                setMenuOpen(false); // Fecha menu após seleção
+              }}
+              className={`font-sans text-xs px-3 py-1 rounded-full 
+                ${selectedCategory === cat.nome ? 'bg-[#af1a2d] text-white' : 'bg-gray-100 text-gray-800 hover:bg-[#af1a2d] hover:text-white'} 
+                transition-colors`}
+            >
+              {cat.nome}
+            </button>
+          ))}
+        </nav>
+      )}
     </header>
   );
 }

@@ -1,33 +1,39 @@
-import { useState, useEffect } from 'react';
-import Header from '@/components/Header';
-import ProductGrid from '@/components/ProductGrid';
-import CartDrawer from '@/components/CartDrawer';
-import CheckoutModal from '@/components/CheckoutModal';
-import ConfirmationModal from '@/components/ConfirmationModal';
-import FloatingCartButton from '@/components/FloatingCartButton';
-import { fetchProducts, categories } from '@/lib/firebase';
-import { Product } from '@/types';
-import { Search, SlidersHorizontal } from 'lucide-react';
+import { useState, useEffect } from "react";
+import Header from "@/components/Header";
+import ProductGrid from "@/components/ProductGrid";
+import CartDrawer from "@/components/CartDrawer";
+import CheckoutModal from "@/components/CheckoutModal";
+import ConfirmationModal from "@/components/ConfirmationModal";
+import FloatingCartButton from "@/components/FloatingCartButton";
+import { fetchProducts, categories } from "@/lib/firebase";
+import { Product } from "@/types";
+import { SlidersHorizontal } from "lucide-react";
 
 export default function Home() {
-  // State para gerenciamento de modais
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
   const [isFilterMenuOpen, setIsFilterMenuOpen] = useState(false);
 
-  // State para filtragem
-  const [selectedCategory, setSelectedCategory] = useState('Todos');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState("Todos");
+  const [searchQuery, setSearchQuery] = useState("");
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 100]);
-  const [sortBy, setSortBy] = useState<'price-asc' | 'price-desc' | 'name'>('name');
+  const [sortBy, setSortBy] = useState<"price-asc" | "price-desc" | "name">("name");
 
-  // State para produtos
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
-  // Buscar produtos da "API"
+  // Estado de login (simples, só para exemplo)
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const userName = "Proprietário";
+
+  // Simulação de função de login
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+    alert("Login realizado! (implemente seu fluxo real aqui)");
+  };
+
   useEffect(() => {
     async function loadProducts() {
       try {
@@ -35,16 +41,15 @@ export default function Home() {
         const productsData = await fetchProducts();
         setProducts(productsData);
 
-        // Determinar o maior preço para o filtro de preço
         if (productsData.length > 0) {
-          const maxPrice = Math.max(...productsData.map(p => p.price));
+          const maxPrice = Math.max(...productsData.map((p) => p.price));
           setPriceRange([0, Math.ceil(maxPrice)]);
         }
 
         setError(null);
       } catch (err) {
-        console.error('Error fetching products:', err);
-        setError(err instanceof Error ? err : new Error('Failed to fetch products'));
+        console.error("Error fetching products:", err);
+        setError(err instanceof Error ? err : new Error("Failed to fetch products"));
       } finally {
         setIsLoading(false);
       }
@@ -56,17 +61,20 @@ export default function Home() {
   // Filtrar produtos por categoria, busca e preço
   const filteredProducts = products
     .filter((product: Product) => {
-      const matchesCategory = selectedCategory === 'Todos' || product.category === selectedCategory;
-      const matchesSearch = searchQuery === '' ||
+      const matchesCategory =
+        selectedCategory === "Todos" || product.category === selectedCategory;
+      const matchesSearch =
+        searchQuery === "" ||
         product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         product.description.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1];
+      const matchesPrice =
+        product.price >= priceRange[0] && product.price <= priceRange[1];
 
       return matchesCategory && matchesSearch && matchesPrice;
     })
     .sort((a, b) => {
-      if (sortBy === 'price-asc') return a.price - b.price;
-      if (sortBy === 'price-desc') return b.price - a.price;
+      if (sortBy === "price-asc") return a.price - b.price;
+      if (sortBy === "price-desc") return b.price - a.price;
       return a.name.localeCompare(b.name);
     });
 
@@ -90,8 +98,7 @@ export default function Home() {
 
   // Manipulador para agrupar produtos por categoria quando estiver na visualização "Todos"
   const renderProductsByCategory = () => {
-    if (selectedCategory !== 'Todos') {
-      // Se uma categoria específica for selecionada, usar a grade padrão
+    if (selectedCategory !== "Todos") {
       return (
         <ProductGrid
           products={filteredProducts}
@@ -101,11 +108,12 @@ export default function Home() {
       );
     }
 
-    // Caso contrário, agrupar por categoria
     return (
       <div>
-        {categories.map(category => {
-          const categoryProducts = filteredProducts.filter(p => p.category === category);
+        {categories.map((category) => {
+          const categoryProducts = filteredProducts.filter(
+            (p) => p.category === category
+          );
 
           if (categoryProducts.length === 0) return null;
 
@@ -133,32 +141,24 @@ export default function Home() {
         openCart={openCart}
         onSelectCategory={setSelectedCategory}
         selectedCategory={selectedCategory}
+        onLogin={handleLogin}
+        isLoggedIn={isLoggedIn}
+        userName={userName}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
       />
+
       <main className="container mx-auto px-4 py-6 relative">
-        {/* Barra de busca e filtros */}
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-sans font-semibold">Cardápio</h2>
-          <div className="flex items-center space-x-2">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Buscar produtos..."
-                className="pl-10 pr-4 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#af1a2d]"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-              <Search className="absolute left-3 top-2.5 text-gray-400" size={18} />
-            </div>
-            <button
-              className="p-2.5 bg-white border rounded-lg hover:bg-gray-50 text-gray-600 focus:outline-none focus:ring-2 focus:ring-[#af1a2d]"
-              onClick={() => setIsFilterMenuOpen(!isFilterMenuOpen)}
-            >
-              <SlidersHorizontal size={18} />
-            </button>
-          </div>
+        {/* FILTRO AVANÇADO */}
+        <div className="flex justify-end mb-6">
+          <button
+            className="p-2.5 bg-white border rounded-lg hover:bg-gray-50 text-gray-600 focus:outline-none focus:ring-2 focus:ring-[#af1a2d]"
+            onClick={() => setIsFilterMenuOpen(!isFilterMenuOpen)}
+          >
+            <SlidersHorizontal size={18} />
+          </button>
         </div>
 
-        {/* Menu de filtros avançados */}
         {isFilterMenuOpen && (
           <div className="bg-white p-4 rounded-lg shadow-md mb-6">
             <div className="flex flex-col space-y-4">
@@ -178,20 +178,15 @@ export default function Home() {
           </div>
         )}
 
-        {/* Contagem de resultados */}
         <div className="mb-4 text-sm text-gray-600">
-          {filteredProducts.length} {filteredProducts.length === 1 ? 'item encontrado' : 'itens encontrados'}
+          {filteredProducts.length}{" "}
+          {filteredProducts.length === 1 ? "item encontrado" : "itens encontrados"}
         </div>
 
-        {/* Produtos agrupados por categoria ou em grade normal */}
         {renderProductsByCategory()}
       </main>
 
-      <CartDrawer
-        isOpen={isCartOpen}
-        onClose={closeCart}
-        onCheckout={openCheckout}
-      />
+      <CartDrawer isOpen={isCartOpen} onClose={closeCart} onCheckout={openCheckout} />
 
       <CheckoutModal
         isOpen={isCheckoutOpen}
@@ -204,9 +199,11 @@ export default function Home() {
         onClose={closeConfirmation}
       />
 
-      <FloatingCartButton onClick={openCart} />
+      {/* Carrinho flutuante só em mobile/tablet */}
+      <div className="lg:hidden">
+        <FloatingCartButton onClick={openCart} />
+      </div>
 
-      {/* Cart overlay */}
       {isCartOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40"

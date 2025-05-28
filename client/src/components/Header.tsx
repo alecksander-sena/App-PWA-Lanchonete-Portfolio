@@ -46,7 +46,7 @@ export default function Header({
       <div className="container mx-auto px-4 py-2 flex items-center gap-2 justify-between">
         {/* BOTÃO MENU HAMBÚRGUER */}
         <button
-          className="p-2 rounded-md hover:bg-gray-100 focus:outline-none flex-shrink-0"
+          className="p-2 rounded-md hover:bg-gray-100 focus:outline-none flex-shrink-0 md:hidden"
           onClick={() => setMenuOpen((v) => !v)}
           aria-label="Abrir menu"
         >
@@ -66,9 +66,44 @@ export default function Header({
           <span className="font-sans font-bold text-lg md:text-2xl text-black">Pedidos Fácil</span>
         </div>
 
-        {/* BARRA DE BUSCA - DESKTOP */}
-        <div className="hidden md:flex flex-1 items-center mx-4">
-          <div className="relative w-full max-w-md">
+        {/* MENU DE CATEGORIAS - DESKTOP APENAS */}
+        <nav className="hidden md:flex gap-1 mx-4">
+          {categoriasOrdenadas.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => onSelectCategory(cat.nome)}
+              className={`font-sans text-xs px-3 py-1 rounded-full transition-colors ${
+                selectedCategory === cat.nome
+                  ? "bg-[#af1a2d] text-white"
+                  : "bg-gray-100 text-gray-800 hover:bg-[#af1a2d] hover:text-white"
+              }`}
+            >
+              {cat.nome}
+            </button>
+          ))}
+        </nav>
+
+        {/* ESPAÇO FLEXÍVEL PARA EMPURRAR */}
+        <div className="flex-1" />
+
+        {/* AÇÕES À DIREITA: CARRINHO + BUSCA + LOGIN */}
+        <div className="flex items-center gap-2">
+          {/* CARRINHO */}
+          <button id="cartButton" className="relative p-2" onClick={openCart}>
+            <img
+              src="/carrinho.png"
+              alt="Carrinho"
+              className="h-8 w-8 object-contain"
+            />
+            {totalItems > 0 && (
+              <span className="absolute -top-1 -right-1 bg-[#af1a2d] text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold border-2 border-white">
+                {totalItems}
+              </span>
+            )}
+          </button>
+
+          {/* BARRA DE BUSCA - DESKTOP: AGORA AO LADO DO CARRINHO */}
+          <div className="hidden md:block relative w-64">
             <input
               type="text"
               placeholder="Buscar produtos..."
@@ -78,42 +113,32 @@ export default function Header({
             />
             <Search className="absolute left-3 top-2.5 text-gray-400" size={18} />
           </div>
-        </div>
 
-        {/* ICON BUSCA MOBILE */}
-        <button
-          className="md:hidden ml-2 p-2 rounded-md hover:bg-gray-100"
-          onClick={() => setMobileSearch((v) => !v)}
-          aria-label="Buscar"
-        >
-          <Search size={22} />
-        </button>
-
-        {/* CARRINHO (apenas desktop) */}
-        <div className="hidden lg:block ml-2">
-          <button id="cartButton" className="relative p-2" onClick={openCart}>
-            <i className="ri-shopping-cart-2-line text-2xl"></i>
-            <span className="absolute -top-1 -right-1 bg-[#af1a2d] text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-              {totalItems}
-            </span>
+          {/* ÍCONE DE BUSCA NO MOBILE */}
+          <button
+            className="md:hidden ml-2 p-2 rounded-md hover:bg-gray-100"
+            onClick={() => setMobileSearch((v) => !v)}
+            aria-label="Buscar"
+          >
+            <Search size={22} />
           </button>
-        </div>
 
-        {/* LOGIN */}
-        <div className="ml-2">
-          {!isLoggedIn ? (
-            <button
-              className="px-4 py-1 rounded-md bg-[#af1a2d] text-white font-sans text-sm hover:bg-[#c02e41] transition"
-              onClick={onLogin}
-            >
-              Login
-            </button>
-          ) : (
-            <div className="flex items-center gap-1">
-              <span className="font-sans text-sm text-gray-700">{userName ?? "Proprietário"}</span>
-              <span className="bg-[#af1a2d] text-white px-2 py-0.5 rounded-full text-xs">Logado</span>
-            </div>
-          )}
+          {/* LOGIN */}
+          <div className="ml-2">
+            {!isLoggedIn ? (
+              <button
+                className="px-4 py-1 rounded-md bg-[#af1a2d] text-white font-sans text-sm hover:bg-[#c02e41] transition"
+                onClick={onLogin}
+              >
+                Login
+              </button>
+            ) : (
+              <div className="flex items-center gap-1">
+                <span className="font-sans text-sm text-gray-700">{userName ?? "Proprietário"}</span>
+                <span className="bg-[#af1a2d] text-white px-2 py-0.5 rounded-full text-xs">Logado</span>
+              </div>
+            )}
+          </div>
         </div>
       </div>
       

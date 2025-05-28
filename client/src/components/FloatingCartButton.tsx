@@ -4,14 +4,12 @@ export default function FloatingCartButton({ onClick }: { onClick: () => void })
   const { totalItems } = useCart();
   return (
     <button
-      className="fixed bottom-6 right-6 z-50 bg-[#af1a2d] text-white rounded-full shadow-lg p-4 flex items-center"
       onClick={onClick}
-      aria-label="Abrir carrinho"
-      style={{ minWidth: 56, minHeight: 56 }}
+      className="fixed bottom-6 right-6 bg-[#af1a2d] rounded-full shadow-lg p-4 z-50 flex items-center justify-center"
     >
-      <i className="ri-shopping-cart-2-line text-2xl"></i>
+      <img src="/carrinho.png" alt="Carrinho" className="h-8 w-8 object-contain" />
       {totalItems > 0 && (
-        <span className="ml-2 bg-white text-[#af1a2d] text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold">
+        <span className="absolute top-0 right-0 bg-[#af1a2d] text-white text-xs     rounded-full h-5 w-5 flex items-center justify-center font-bold border-2 border-white" style={{transform: 'translate(50%,-50%)'}}>
           {totalItems}
         </span>
       )}

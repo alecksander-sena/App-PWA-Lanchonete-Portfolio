@@ -4,11 +4,10 @@ import ProductGrid from "@/components/ProductGrid";
 import CartDrawer from "@/components/CartDrawer";
 import CheckoutModal from "@/components/CheckoutModal";
 import ConfirmationModal from "@/components/ConfirmationModal";
-// import FloatingCartButton from "@/components/FloatingCartButton";
+import BottomCartBar from "@/components/BottomCartBar";
 import { fetchProducts, categories } from "@/lib/firebase";
 import { Product } from "@/types";
 import { SlidersHorizontal } from "lucide-react";
-import BottomCartBar from "@/components/BottomCartBar";
 
 export default function Home() {
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -207,7 +206,7 @@ export default function Home() {
       </div> */}
 
       {/* Adicione a barra inferior do carrinho */}
-      <BottomCartBar onCheckout={openCheckout} />
+      <BottomCartBar onOpenCart={openCart} />
 
       {isCartOpen && (
         <div

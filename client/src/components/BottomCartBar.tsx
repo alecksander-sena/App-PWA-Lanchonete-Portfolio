@@ -1,10 +1,10 @@
 import { useCart } from "@/context/CartContext";
 
 interface BottomCartBarProps {
-  onCheckout: () => void;
+  onOpenCart: () => void;
 }
 
-export default function BottomCartBar({ onCheckout }: BottomCartBarProps) {
+export default function BottomCartBar({ onOpenCart }: BottomCartBarProps) {
   const { totalItems } = useCart();
 
   if (totalItems === 0) return null;
@@ -17,12 +17,12 @@ export default function BottomCartBar({ onCheckout }: BottomCartBarProps) {
       <span className="bg-white text-[#af1a2d] font-bold rounded-full w-8 h-8 flex items-center justify-center text-base mx-2 shadow">
         {totalItems}
       </span>
-      {/* Direita: Finalizar */}
+      {/* Direita: Abrir Carrinho */}
       <button
-        onClick={onCheckout}
-        className="bg-[#eea530] hover:bg-[#d89a25] text-[#af1a2d] font-bold px-5 py-2 rounded transition-colors shadow"
+        onClick={onOpenCart}
+        className="bg-[#af1a2d] hover:bg-[#901021] text-white font-bold px-5 py-2 rounded transition-colors shadow"
       >
-        Finalizar
+        Abrir Carrinho
       </button>
     </div>
   );

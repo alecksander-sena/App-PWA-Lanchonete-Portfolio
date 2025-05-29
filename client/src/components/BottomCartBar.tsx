@@ -10,7 +10,7 @@ export default function BottomCartBar({ onOpenCart }: BottomCartBarProps) {
   if (totalItems === 0) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 w-full bg-[#af1a2d] text-white flex items-center justify-between px-4 py-3 z-50 shadow-lg">
+    <div className="fixed bottom-0 left-0 w-full bg-white text-[#af1a2d] flex items-center justify-between px-4 py-3 z-50 shadow-lg">
       {/* Esquerda: Meus Itens */}
       <span className="font-bold text-base md:text-lg">Meus Itens</span>
       {/* Centro: quantidade */}

@@ -200,13 +200,12 @@ export default function Home() {
         onClose={closeConfirmation}
       />
 
-      {/* Remova o carrinho flutuante */}
-      {/* <div className="lg:hidden">
-        <FloatingCartButton onClick={openCart} />
-      </div> */}
-
-      {/* Adicione a barra inferior do carrinho */}
-      <BottomCartBar onOpenCart={openCart} />
+      {/* Barra inferior só aparece se o carrinho NÃO estiver aberto */}
+      {!isCartOpen && (
+        <div className="lg:hidden">
+          <BottomCartBar onOpenCart={openCart} />
+        </div>
+      )}
 
       {isCartOpen && (
         <div

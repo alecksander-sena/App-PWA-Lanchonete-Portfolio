@@ -8,6 +8,7 @@ import ConfirmationModal from "@/components/ConfirmationModal";
 import { fetchProducts, categories } from "@/lib/firebase";
 import { Product } from "@/types";
 import { SlidersHorizontal } from "lucide-react";
+import BottomCartBar from "@/components/BottomCartBar";
 
 export default function Home() {
   const [isCartOpen, setIsCartOpen] = useState(false);

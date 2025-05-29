@@ -43,7 +43,7 @@ export default function Header({
 
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
-      <div className="container mx-auto px-4 py-2 flex items-center gap-2 justify-between">
+      <div className="container mx-auto px-2 py-2 flex flex-wrap items-center gap-x-2 gap-y-2 justify-between min-w-0">
         {/* BOTÃO MENU HAMBÚRGUER */}
         <button
           className="p-2 rounded-md hover:bg-gray-100 focus:outline-none flex-shrink-0 md:hidden"
@@ -56,27 +56,28 @@ export default function Header({
         </button>
 
         {/* LOGO E NOME */}
-        <div className="flex items-center gap-2 flex-shrink-0">
+        <div className="flex items-center gap-2 flex-shrink-0 min-w-0">
           <img
             src="/android-chrome-192x192.png"
             alt="PedidosFácil Logo"
             className="h-10 w-10 rounded-full object-cover"
             style={{ background: "#fff" }}
           />
-          <span className="font-sans font-bold text-lg md:text-2xl text-black">Pedidos Fácil</span>
+          <span className="font-sans font-bold text-lg md:text-2xl text-black truncate">Pedidos Fácil</span>
         </div>
 
         {/* MENU DE CATEGORIAS - DESKTOP APENAS */}
-        <nav className="hidden md:flex gap-1 mx-4">
+        <nav className="hidden md:flex flex-wrap gap-1 mx-2 min-w-0">
           {categoriasOrdenadas.map((cat) => (
             <button
               key={cat.id}
               onClick={() => onSelectCategory(cat.nome)}
-              className={`font-sans text-xs px-3 py-1 rounded-full transition-colors ${
+              className={`font-sans text-xs px-3 py-1 rounded-full transition-colors truncate max-w-[110px] ${
                 selectedCategory === cat.nome
                   ? "bg-[#af1a2d] text-white"
                   : "bg-gray-100 text-gray-800 hover:bg-[#af1a2d] hover:text-white"
               }`}
+              style={{ minWidth: 0 }}
             >
               {cat.nome}
             </button>
@@ -84,10 +85,10 @@ export default function Header({
         </nav>
 
         {/* ESPAÇO FLEXÍVEL PARA EMPURRAR */}
-        <div className="flex-1" />
+        <div className="flex-1 min-w-0" />
 
         {/* AÇÕES À DIREITA: CARRINHO + BUSCA + LOGIN */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-shrink-0 min-w-0">
           {/* CARRINHO - SÓ NO DESKTOP */}
           <div className="hidden lg:block">
             <button id="cartButton" className="relative p-2" onClick={openCart}>
@@ -105,7 +106,7 @@ export default function Header({
           </div>
 
           {/* BARRA DE BUSCA - DESKTOP: AGORA AO LADO DO CARRINHO */}
-          <div className="hidden md:block relative w-64">
+          <div className="hidden md:block relative w-40 md:w-64 min-w-0">
             <input
               type="text"
               placeholder="Buscar produtos..."
@@ -129,7 +130,7 @@ export default function Header({
           <div className="ml-2">
             {!isLoggedIn ? (
               <button
-                className="px-4 py-1 rounded-md bg-[#af1a2d] text-white font-sans text-sm hover:bg-[#c02e41] transition"
+                className="px-4 py-1 rounded-md bg-[#af1a2d] text-white font-sans text-sm hover:bg-[#c02e41] transition whitespace-nowrap"
                 onClick={onLogin}
               >
                 Login

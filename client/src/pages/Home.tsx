@@ -4,7 +4,7 @@ import ProductGrid from "@/components/ProductGrid";
 import CartDrawer from "@/components/CartDrawer";
 import CheckoutModal from "@/components/CheckoutModal";
 import ConfirmationModal from "@/components/ConfirmationModal";
-import FloatingCartButton from "@/components/FloatingCartButton";
+// import FloatingCartButton from "@/components/FloatingCartButton";
 import { fetchProducts, categories } from "@/lib/firebase";
 import { Product } from "@/types";
 import { SlidersHorizontal } from "lucide-react";
@@ -200,10 +200,13 @@ export default function Home() {
         onClose={closeConfirmation}
       />
 
-      {/* Carrinho flutuante só em mobile/tablet */}
-      <div className="lg:hidden">
+      {/* Remova o carrinho flutuante */}
+      {/* <div className="lg:hidden">
         <FloatingCartButton onClick={openCart} />
-      </div>
+      </div> */}
+
+      {/* Adicione a barra inferior do carrinho */}
+      <BottomCartBar onCheckout={openCheckout} />
 
       {isCartOpen && (
         <div

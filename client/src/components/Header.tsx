@@ -88,19 +88,21 @@ export default function Header({
 
         {/* AÇÕES À DIREITA: CARRINHO + BUSCA + LOGIN */}
         <div className="flex items-center gap-2">
-          {/* CARRINHO */}
-          <button id="cartButton" className="relative p-2" onClick={openCart}>
-            <img
-              src="/carrinho.png"
-              alt="Carrinho"
-              className="h-8 w-8 object-contain"
-            />
-            {totalItems > 0 && (
-              <span className="absolute -top-1 -right-1 bg-[#af1a2d] text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold border-2 border-white">
-                {totalItems}
-              </span>
-            )}
-          </button>
+          {/* CARRINHO - SÓ NO DESKTOP */}
+          <div className="hidden lg:block">
+            <button id="cartButton" className="relative p-2" onClick={openCart}>
+              <img
+                src="/carrinho.png"
+                alt="Carrinho"
+                className="h-8 w-8 object-contain"
+              />
+              {totalItems > 0 && (
+                <span className="absolute -top-1 -right-1 bg-[#af1a2d] text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold border-2 border-white">
+                  {totalItems}
+                </span>
+              )}
+            </button>
+          </div>
 
           {/* BARRA DE BUSCA - DESKTOP: AGORA AO LADO DO CARRINHO */}
           <div className="hidden md:block relative w-64">

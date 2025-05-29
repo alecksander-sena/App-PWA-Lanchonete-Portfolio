@@ -149,8 +149,11 @@ export default function Home() {
       />
 
       <main className="container mx-auto px-4 py-6 relative">
-        {/* FILTRO AVANÇADO */}
-        <div className="flex justify-end mb-6">
+        {/* Produtos */}
+        {renderProductsByCategory()}
+
+        {/* FILTRO AVANÇADO E CONTAGEM DE ITENS AGORA EMBAIXO */}
+        <div className="flex justify-end mt-8 mb-4">
           <button
             className="p-2.5 bg-white border rounded-lg hover:bg-gray-50 text-gray-600 focus:outline-none focus:ring-2 focus:ring-[#af1a2d]"
             onClick={() => setIsFilterMenuOpen(!isFilterMenuOpen)}
@@ -182,8 +185,6 @@ export default function Home() {
           {filteredProducts.length}{" "}
           {filteredProducts.length === 1 ? "item encontrado" : "itens encontrados"}
         </div>
-
-        {renderProductsByCategory()}
       </main>
 
       <CartDrawer isOpen={isCartOpen} onClose={closeCart} onCheckout={openCheckout} />

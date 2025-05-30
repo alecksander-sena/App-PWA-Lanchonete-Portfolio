@@ -19,6 +19,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 
+// ======== Esquema de validação ===========
 const checkoutSchema = z.object({
   name: z.string().min(3, 'Nome deve ter pelo menos 3 caracteres'),
   phone: z.string().min(10, 'Telefone deve ter pelo menos 10 dígitos'),
@@ -48,17 +49,24 @@ interface CheckoutModalProps {
   onConfirm: () => void;
 }
 
-export default function CheckoutModal({ isOpen, onClose, onConfirm }: CheckoutModalProps) {
-  const { cart, subtotal, DELIVERY_FEE, clearCart } = useCart();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const { toast } = useToast();
+const paymentMethods = {
+  pix: 'PIX',
+  cash: 'Dinheiro',
+  card: 'Cartão na entrega',
+};
 
+export default function CheckoutModal({ isOpen, onClose, onConfirm }: CheckoutModalProps) {
+  // ======== Hooks =======
+  const { cart, subtotal, DELIVERY_FEE, clearCart } = useCart();
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderType, setOrderType] = useState<'delivery' | 'pickup'>('delivery');
 
-  // Taxa dinâmica
+  // ======== Taxa de entrega dinâmica ========
   const deliveryFee = orderType === 'delivery' ? DELIVERY_FEE : 0;
   const total = subtotal + deliveryFee;
 
+  // ======== Formulário ========
   const form = useForm<CheckoutFormValues>({
     resolver: zodResolver(checkoutSchema),
     defaultValues: {
@@ -71,15 +79,8 @@ export default function CheckoutModal({ isOpen, onClose, onConfirm }: CheckoutMo
     },
   });
 
-  if (!isOpen) return null;
-
-  const paymentMethods = {
-    pix: 'PIX',
-    cash: 'Dinheiro',
-    card: 'Cartão na entrega',
-  };
-
-  const generateWhatsAppMessage = (data: CheckoutFormValues) => {
+  // ======== Geração de mensagem do WhatsApp ========
+  function generateWhatsAppMessage(data: CheckoutFormValues) {
     const itemsList = cart.map(item =>
       `- ${item.name} x${item.quantity}: ${(item.price * item.quantity).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`
     ).join('\n');
@@ -101,9 +102,10 @@ ${itemsList}
 *Taxa de entrega:* ${deliveryFee.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
 *Total:* ${total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
 `.trim();
-  };
+  }
 
-  const onSubmit = async (data: CheckoutFormValues) => {
+  // ======== Submissão do formulário ========
+  async function onSubmit(data: CheckoutFormValues) {
     setIsSubmitting(true);
 
     try {
@@ -111,7 +113,10 @@ ${itemsList}
         customer: {
           name: data.name,
           phone: data.phone,
-          address: data.orderType === 'delivery' ? data.address : 'Retirada no balcão',
+          // Garantir que address nunca seja undefined:
+          address: data.orderType === 'delivery'
+            ? (data.address || '')
+            : 'Retirada no balcão',
         },
         items: cart.map(item => ({
           id: item.id,
@@ -129,9 +134,9 @@ ${itemsList}
 
       await saveOrder(order);
 
+      // WhatsApp
       const message = generateWhatsAppMessage(data);
       const encodedMessage = encodeURIComponent(message);
-
       const phoneNumber = "5574999414864";
       const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
       window.open(whatsappUrl, '_blank');
@@ -149,8 +154,12 @@ ${itemsList}
     } finally {
       setIsSubmitting(false);
     }
-  };
+  }
 
+  // ======== Não renderiza se não estiver aberto ========
+  if (!isOpen) return null;
+
+  // ======== Render ========
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
       <div className="bg-white rounded-xl w-full max-w-md mx-4 md:mx-0 max-h-[90vh] overflow-y-auto">
@@ -165,9 +174,9 @@ ${itemsList}
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="p-6 space-y-6">
+            {/* Dados do cliente */}
             <div className="space-y-4">
               <h3 className="font-poppins font-medium text-lg">Seus dados</h3>
-
               <FormField
                 control={form.control}
                 name="name"
@@ -175,16 +184,12 @@ ${itemsList}
                   <FormItem>
                     <FormLabel>Nome completo</FormLabel>
                     <FormControl>
-                      <Input
-                        {...field}
-                        className="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none"
-                      />
+                      <Input {...field} className="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-
               <FormField
                 control={form.control}
                 name="phone"
@@ -192,18 +197,14 @@ ${itemsList}
                   <FormItem>
                     <FormLabel>Telefone</FormLabel>
                     <FormControl>
-                      <Input
-                        {...field}
-                        type="tel"
-                        className="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none"
-                      />
+                      <Input {...field} type="tel" className="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
 
-              {/* Tipo de pedido: Entrega ou Retirada */}
+              {/* Tipo de pedido */}
               <FormField
                 control={form.control}
                 name="orderType"
@@ -234,13 +235,15 @@ ${itemsList}
                 )}
               />
 
-              {/* Endereço - só obrigatório se for entrega */}
+              {/* Endereço */}
               <FormField
                 control={form.control}
                 name="address"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Endereço completo {orderType === 'delivery' && <span className="text-red-600">*</span>}</FormLabel>
+                    <FormLabel>
+                      Endereço completo {orderType === 'delivery' && <span className="text-red-600">*</span>}
+                    </FormLabel>
                     <FormControl>
                       <Textarea
                         {...field}
@@ -275,9 +278,9 @@ ${itemsList}
               />
             </div>
 
+            {/* Pagamento */}
             <div className="space-y-4">
               <h3 className="font-poppins font-medium text-lg">Forma de pagamento</h3>
-
               <FormField
                 control={form.control}
                 name="payment"
@@ -290,35 +293,21 @@ ${itemsList}
                         className="space-y-2"
                       >
                         <div className="flex items-center space-x-3 p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
-                          <RadioGroupItem
-                            value="pix"
-                            id="pix"
-                            className="h-4 w-4 text-[#af1a2d]"
-                          />
+                          <RadioGroupItem value="pix" id="pix" className="h-4 w-4 text-[#af1a2d]" />
                           <Label htmlFor="pix" className="flex-1 flex items-center cursor-pointer">
                             <span className="mr-2 text-xl">💰</span>
                             <span>PIX</span>
                           </Label>
                         </div>
-
                         <div className="flex items-center space-x-3 p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
-                          <RadioGroupItem
-                            value="cash"
-                            id="cash"
-                            className="h-4 w-4 text-[#af1a2d]"
-                          />
+                          <RadioGroupItem value="cash" id="cash" className="h-4 w-4 text-[#af1a2d]" />
                           <Label htmlFor="cash" className="flex-1 flex items-center cursor-pointer">
                             <span className="mr-2 text-xl">💵</span>
                             <span>Dinheiro</span>
                           </Label>
                         </div>
-
                         <div className="flex items-center space-x-3 p-3 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50">
-                          <RadioGroupItem
-                            value="card"
-                            id="card"
-                            className="h-4 w-4 text-[#af1a2d]"
-                          />
+                          <RadioGroupItem value="card" id="card" className="h-4 w-4 text-[#af1a2d]" />
                           <Label htmlFor="card" className="flex-1 flex items-center cursor-pointer">
                             <span className="mr-2 text-xl">💳</span>
                             <span>Cartão na entrega</span>

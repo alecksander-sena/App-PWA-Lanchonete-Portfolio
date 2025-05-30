@@ -14,13 +14,13 @@ interface HeaderProps {
 }
 
 const categorias = [
+  { nome: "Todos", id: "todos" },
   { nome: "Adicionais", id: "adicionais" },
   { nome: "Bebidas", id: "bebidas" },
   { nome: "Cuscuz", id: "cuscuz" },
   { nome: "Hambúrgueres", id: "hamburgueres" },
   { nome: "Salgados", id: "salgados" },
-  { nome: "Tapioca", id: "tapioca" },
-  { nome: "Todos", id: "todos" },
+  { nome: "Tapioca", id: "tapioca" },  
 ];
 
 const categoriasOrdenadas = [...categorias].sort((a, b) =>

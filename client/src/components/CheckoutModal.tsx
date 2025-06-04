@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -18,6 +18,8 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../lib/firebaseConfig"; // ajuste se necessário!
 
 // ======== Esquema de validação ===========
 const checkoutSchema = z.object({
@@ -55,15 +57,57 @@ const paymentMethods = {
   card: 'Cartão na entrega',
 };
 
+// ======== Função para buscar dados da loja ===========
+async function buscarDadosLoja(lojaId: string) {
+  const ref = doc(db, "lojas", lojaId);
+  const snap = await getDoc(ref);
+  if (snap.exists()) {
+    return snap.data();
+  } else {
+    throw new Error("Loja não encontrada");
+  }
+}
+
 export default function CheckoutModal({ isOpen, onClose, onConfirm }: CheckoutModalProps) {
   // ======== Hooks =======
-  const { cart, subtotal, DELIVERY_FEE, clearCart } = useCart();
+  const lojaId = "Calc.Dist.Lanch.Bom Sabor Xx"; // Troque pelo seu ID, se necessário!
+  const { cart, subtotal, clearCart } = useCart();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderType, setOrderType] = useState<'delivery' | 'pickup'>('delivery');
 
   // ======== Taxa de entrega dinâmica ========
-  const deliveryFee = orderType === 'delivery' ? DELIVERY_FEE : 0;
+  const [deliveryFee, setDeliveryFee] = useState(0);
+  const [dadosLoja, setDadosLoja] = useState<any>(null);
+  const [calculandoTaxa, setCalculandoTaxa] = useState(false);
+
+  // Busca dados da loja e calcula taxa de entrega sempre que abrir o modal ou mudar tipo
+  useEffect(() => {
+    async function calcularTaxa() {
+      setCalculandoTaxa(true);
+      try {
+        const loja = await buscarDadosLoja(lojaId);
+        setDadosLoja(loja);
+
+        let taxa = 0;
+        if (orderType === "delivery") {
+          if (loja.tipoTaxaEntrega === "fixa") {
+            taxa = loja.taxaEntregaFixa;
+          } else if (loja.tipoTaxaEntrega === "distancia") {
+            // Aqui usa 2km como exemplo; troque depois pelo cálculo real se quiser!
+            const distanciaKm = 2;
+            taxa = loja.precoPorKm * distanciaKm;
+          }
+        }
+        setDeliveryFee(taxa);
+      } catch (e) {
+        setDeliveryFee(0);
+      }
+      setCalculandoTaxa(false);
+    }
+    if (isOpen) calcularTaxa();
+  }, [isOpen, orderType, lojaId]);
+
   const total = subtotal + deliveryFee;
 
   // ======== Formulário ========
@@ -113,7 +157,6 @@ ${itemsList}
         customer: {
           name: data.name,
           phone: data.phone,
-          // Garantir que address nunca seja undefined:
           address: data.orderType === 'delivery'
             ? (data.address || '')
             : 'Retirada no balcão',
@@ -325,7 +368,11 @@ ${itemsList}
             <div className="flex items-center justify-between text-sm text-gray-600">
               <span>Taxa de entrega:</span>
               <span className={deliveryFee === 0 ? "text-green-600" : "text-red-600"}>
-                {deliveryFee === 0 ? "Grátis (retirada)" : `R$ ${deliveryFee.toFixed(2)}`}
+                {calculandoTaxa
+                  ? "Calculando..."
+                  : (orderType === "pickup"
+                      ? "Grátis (retirada)"
+                      : `R$ ${deliveryFee.toFixed(2)}`)}
               </span>
             </div>
 

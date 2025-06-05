@@ -171,6 +171,17 @@ ${itemsList}
           </div>
         </div>
 
+        {/* Botão Voltar ao Carrinho */}
+        <div className="flex justify-end p-4">
+          <Button
+            variant="outline"
+            onClick={onClose}
+            className="rounded-lg"
+          >
+            Voltar ao Carrinho
+          </Button>
+        </div>
+
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="p-6 space-y-6">
             {/* Dados do cliente */}
@@ -225,7 +236,7 @@ ${itemsList}
                         </div>
                         <div className="flex items-center space-x-2">
                           <RadioGroupItem value="pickup" id="pickup" />
-                          <Label htmlFor="pickup">Retirar no balcão</Label>
+                          <Label htmlFor="pickup">Retirada no balcão</Label>
                         </div>
                       </RadioGroup>
                     </FormControl>
@@ -343,6 +354,20 @@ ${itemsList}
             </Button>
           </form>
         </Form>
+
+        {/* Mensagem e botão para adicionar item */}
+        <div className="flex flex-col items-end p-4">
+          <span className="mb-2 text-sm text-gray-700 font-medium">
+            Esqueceu algum item?
+          </span>
+          <Button
+            variant="outline"
+            onClick={onClose}
+            className="rounded-lg"
+          >
+            Adicione Aqui!
+          </Button>
+        </div>
       </div>
     </div>
   );

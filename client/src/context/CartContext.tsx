@@ -9,15 +9,12 @@ interface CartContextType {
   clearCart: () => void;
   totalItems: number;
   subtotal: number;
-  total: number;
-  DELIVERY_FEE: number;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
-  const DELIVERY_FEE = 5.00;
 
   const addToCart = useCallback((product: Product) => {
     setCart(currentCart => {
@@ -58,13 +55,10 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   }, []);
 
   const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
-  
   const subtotal = cart.reduce(
     (total, item) => total + item.price * item.quantity, 
     0
   );
-  
-  const total = subtotal + DELIVERY_FEE;
 
   return (
     <CartContext.Provider value={{
@@ -74,9 +68,7 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       updateQuantity,
       clearCart,
       totalItems,
-      subtotal,
-      total,
-      DELIVERY_FEE
+      subtotal
     }}>
       {children}
     </CartContext.Provider>

@@ -16,8 +16,6 @@ export default function CartDrawer({ isOpen, onClose, onCheckout }: CartDrawerPr
     updateQuantity, 
     totalItems, 
     subtotal, 
-    total, 
-    DELIVERY_FEE 
   } = useCart();
 
   // Disable body scroll when cart is open
@@ -130,14 +128,7 @@ export default function CartDrawer({ isOpen, onClose, onCheckout }: CartDrawerPr
               <span className="text-[#737373]">Subtotal</span>
               <span className="font-medium">{formatCurrency(subtotal)}</span>
             </div>
-            <div className="flex justify-between mb-2">
-              <span className="text-[#737373]">Taxa de entrega</span>
-              <span className="font-medium">{formatCurrency(DELIVERY_FEE)}</span>
-            </div>
-            <div className="flex justify-between font-semibold text-lg">
-              <span>Total</span>
-              <span className="text-[#af1a2d]">{formatCurrency(total)}</span>
-            </div>
+            {/* Taxa de entrega e total REMOVIDOS do carrinho */}
           </div>
           <div className="grid grid-cols-2 gap-3">
             <Button

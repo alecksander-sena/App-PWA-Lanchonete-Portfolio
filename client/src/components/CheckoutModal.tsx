@@ -192,7 +192,7 @@ ${itemsList}
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Nome completo</FormLabel>
+                    <FormLabel>Nome</FormLabel> {/* Alterado aqui */}
                     <FormControl>
                       <Input {...field} className="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none" />
                     </FormControl>
@@ -343,6 +343,20 @@ ${itemsList}
             <div className="flex items-center justify-between text-base font-semibold">
               <span>Total:</span>
               <span>R$ {total.toFixed(2)}</span>
+            </div>
+
+            {/* Mensagem e botão na mesma linha */}
+            <div className="flex items-center justify-end gap-2">
+              <span className="text-sm text-gray-700 font-medium">
+                Esqueceu algum item?
+              </span>
+              <Button
+                variant="outline"
+                onClick={onClose}
+                className="rounded-lg"
+              >
+                Adicione Aqui!
+              </Button>
             </div>
 
             <Button

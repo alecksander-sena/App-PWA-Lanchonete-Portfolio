@@ -164,37 +164,26 @@ ${itemsList}
       <div className="bg-white rounded-xl w-full max-w-md mx-4 md:mx-0 max-h-[90vh] overflow-y-auto">
         <div className="p-4 border-b sticky top-0 bg-white z-10">
           <div className="flex justify-between items-center">
-            <h2 className="text-xl font-poppins font-semibold">Finalizar Pedido</h2>
+            <h2 className="text-lg font-poppins font-semibold">Finalizar Pedido</h2> {/* Fonte menor */}
             <button className="p-2" onClick={onClose}>
               <i className="ri-close-line text-xl"></i>
             </button>
           </div>
         </div>
 
-        {/* Botão Voltar ao Carrinho */}
-        <div className="flex justify-end p-4">
-          <Button
-            variant="outline"
-            onClick={onClose}
-            className="rounded-lg"
-          >
-            Voltar ao Carrinho
-          </Button>
-        </div>
-
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="p-6 space-y-6">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="p-4 space-y-4"> {/* padding e espaçamento menores */}
             {/* Dados do cliente */}
-            <div className="space-y-4">
-              <h3 className="font-poppins font-medium text-lg">Seus dados</h3>
+            <div className="space-y-3">
+              <h3 className="font-poppins font-medium text-base">Seus dados</h3> {/* Fonte menor */}
               <FormField
                 control={form.control}
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Nome</FormLabel> {/* Alterado aqui */}
+                    <FormLabel className="text-sm">Nome</FormLabel>
                     <FormControl>
-                      <Input {...field} className="form-control w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none" />
+                      <Input {...field} className="form-control w-full px-3 py-1.5 border border-gray-300 rounded-lg text-sm" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -332,7 +321,7 @@ ${itemsList}
             </div>
 
             {/* Taxa de entrega fixa */}
-            <div className="flex items-center justify-between text-sm text-gray-600">
+            <div className="flex items-center justify-between text-xs text-gray-600">
               <span>Taxa de entrega:</span>
               <span className={deliveryFee === 0 ? "text-green-600" : "text-red-600"}>
                 {orderType === "pickup"
@@ -340,20 +329,20 @@ ${itemsList}
                   : `R$ ${deliveryFee.toFixed(2)}`}
               </span>
             </div>
-            <div className="flex items-center justify-between text-base font-semibold">
+            <div className="flex items-center justify-between text-sm font-semibold">
               <span>Total:</span>
               <span>R$ {total.toFixed(2)}</span>
             </div>
 
-            {/* Mensagem e botão na mesma linha */}
-            <div className="flex items-center justify-end gap-2">
-              <span className="text-sm text-gray-700 font-medium">
+            {/* Mensagem e botão na mesma linha, logo após o total */}
+            <div className="flex items-center justify-end gap-2 mt-2">
+              <span className="text-xs text-gray-700 font-medium">
                 Esqueceu algum item?
               </span>
               <Button
                 variant="outline"
                 onClick={onClose}
-                className="rounded-lg"
+                className="rounded-lg text-xs px-3 py-1"
               >
                 Adicione Aqui!
               </Button>
@@ -361,27 +350,13 @@ ${itemsList}
 
             <Button
               type="submit"
-              className="w-full bg-[#af1a2d] hover:bg-[#9a1626] text-white py-3 rounded-lg font-medium"
+              className="w-full bg-[#af1a2d] hover:bg-[#9a1626] text-white py-2 rounded-lg font-medium text-sm"
               disabled={isSubmitting}
             >
               {isSubmitting ? 'Processando...' : 'Confirmar Pedido'}
             </Button>
           </form>
         </Form>
-
-        {/* Mensagem e botão para adicionar item */}
-        <div className="flex flex-col items-end p-4">
-          <span className="mb-2 text-sm text-gray-700 font-medium">
-            Esqueceu algum item?
-          </span>
-          <Button
-            variant="outline"
-            onClick={onClose}
-            className="rounded-lg"
-          >
-            Adicione Aqui!
-          </Button>
-        </div>
       </div>
     </div>
   );

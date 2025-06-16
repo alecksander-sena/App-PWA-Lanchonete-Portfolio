@@ -76,7 +76,7 @@ const sampleProducts: Product[] = [
     name: "Refrigerante 1L",
     description: "Guaraná ou Pepsi",
     price: 6.50,
-    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750109092/pepsi1l_w32p3d.webp",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750110874/0122940_ovq7wl.webp",
     category: "Bebidas"
   },
   {

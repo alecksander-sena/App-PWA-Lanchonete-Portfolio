@@ -100,7 +100,7 @@ const sampleProducts: Product[] = [
     name: "Tubaina",
     description: "Refrigerante sabor tubaína",
     price: 4.00,
-    image: "https://images.unsplash.com/photo-1625772299848-391b6a87d7b3?q=80&w=500",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750111749/Tubaina_S%C3%B3_Frutas_ccjtsg.png",
     category: "Bebidas"
   },
   {

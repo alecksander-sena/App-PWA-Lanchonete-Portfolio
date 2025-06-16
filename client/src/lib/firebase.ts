@@ -150,7 +150,7 @@ const sampleProducts: Product[] = [
     name: "Salgados Assados",
     description: "Opções: Queijo e Presunto, Calabresa ou Frango",
     price: 3.00,
-    image: "https://images.unsplash.com/photo-1620146867643-4db048c53267?q=80&w=500",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750117507/Salgado_Assado_djvrkj.png",
     category: "Salgados"
   },
   {
@@ -158,7 +158,7 @@ const sampleProducts: Product[] = [
     name: "Salgados Fritos",
     description: "Opções: Frango ou Salsicha",
     price: 2.00,
-    image: "https://images.unsplash.com/photo-1604909052743-94e838986d24?q=80&w=500",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750117250/Salgado_Frito_jibhvn.jpg",
     category: "Salgados"
   },
   {
@@ -166,7 +166,7 @@ const sampleProducts: Product[] = [
     name: "Hamburgão",
     description: "Recheado com carne de hambúrguer",
     price: 5.00,
-    image: "https://images.unsplash.com/photo-1655910098016-b290d98fe1a6?q=80&w=500",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750116674/Hamburg%C3%A3o_k6ipr6.png",
     category: "Salgados"
   },
   

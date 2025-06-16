@@ -58,13 +58,13 @@ const sampleProducts: Product[] = [
     name: "XFRANGO",
     description: "Pão Brioche, Frango, Queijo, Presunto e Cebola",
     price: 15.00,
-    image: "https://images.unsplash.com/photo-1623653110314-2f30b5202dd0?q=80&w=500",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750075773/Hamburguer_de_frango_f906d3.png",
     category: "Hambúrgueres"
   },
   {
     id: "7",
     name: "OVO COM QUEIJO",
-    description: "Pão Brioche, Carne Artesanal, Ovo, Queijo, Tomate e Alface",
+    description: "Pão Brioche, Ovo, Queijo, Tomate e Alface",
     price: 10.00,
     image: "https://images.unsplash.com/photo-1560130803-aaadb4bc913e?q=80&w=500",
     category: "Hambúrgueres"
@@ -74,25 +74,25 @@ const sampleProducts: Product[] = [
   {
     id: "8",
     name: "Refrigerante 1L",
-    description: "Coca-Cola, Guaraná ou Sprite",
+    description: "Guaraná ou Pepsi",
     price: 6.50,
-    image: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?q=80&w=500",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750109092/pepsi1l_w32p3d.webp",
     category: "Bebidas"
   },
   {
     id: "9",
-    name: "Refrigerante Lata",
-    description: "Coca-Cola, Guaraná ou Sprite",
+    name: "Refrigerante Lata 350ml",
+    description: "Guaraná ou Pepsi",
     price: 4.50,
-    image: "https://images.unsplash.com/photo-1629203432180-71e9b18d856e?q=80&w=500",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750109154/PEPSI_20LATA_mtwqe8.png",
     category: "Bebidas"
   },
   {
     id: "10",
-    name: "Refrigerante 250ml",
-    description: "Coca-Cola, Guaraná ou Sprite",
+    name: "Refrigerante 200ml",
+    description: "Guaraná ou Pepsi",
     price: 2.50,
-    image: "https://images.unsplash.com/photo-1543253687-c931c8e01820?q=80&w=500",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750109087/ca%C3%A7ulinha_zcpv7w.webp",
     category: "Bebidas"
   },
   {
@@ -108,15 +108,15 @@ const sampleProducts: Product[] = [
     name: "Guarathon",
     description: "Energético sabor guaraná",
     price: 2.00,
-    image: "https://images.unsplash.com/photo-1613758235402-745466bb7efe?q=80&w=500",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750105364/guarathon_jsfdny.jpg",
     category: "Bebidas"
   },
   {
     id: "13",
     name: "Golito",
-    description: "Refrigerante tradicional",
+    description: "Suco de Uva",
     price: 2.00,
-    image: "https://images.unsplash.com/photo-1628144029407-edb2aa518763?q=80&w=500",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750105353/golito_nuhkwg.jpg",
     category: "Bebidas"
   },
   {
@@ -124,7 +124,7 @@ const sampleProducts: Product[] = [
     name: "Suco Com Água",
     description: "Polpa de Acerola, Laranja Com Acerola, Goiaba e Morango",
     price: 4.00,
-    image: "https://images.unsplash.com/photo-1600271886742-f049cd451bba?q=80&w=500",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750107449/suco_com_agua_mlc3xe.png",
     category: "Bebidas"
   },
   {
@@ -132,7 +132,7 @@ const sampleProducts: Product[] = [
     name: "Suco Com Leite",
     description: "Polpa de Acerola, Laranja Com Acerola, Goiaba e Morango",
     price: 6.00,
-    image: "https://images.unsplash.com/photo-1600718374662-0483a8ac8292?q=80&w=500",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750107456/suco_com_leite_y4reci.png",
     category: "Bebidas"
   },
   {

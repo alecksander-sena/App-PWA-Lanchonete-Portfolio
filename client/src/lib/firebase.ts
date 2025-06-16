@@ -58,7 +58,7 @@ const sampleProducts: Product[] = [
     name: "XFRANGO",
     description: "Pão Brioche, Frango, Queijo, Presunto e Cebola",
     price: 15.00,
-    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750075773/Hamburguer_de_frango_f906d3.png",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/c_pad,w_500,h_500/v1750075773/Hamburguer_de_frango_f906d3.png",
     category: "Hambúrgueres"
   },
   {

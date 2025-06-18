@@ -43,7 +43,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             target.src = 'https://via.placeholder.com/400x300?text=Imagem+indisponível';
           }}
         />
-        <p className="text-[10px] text-gray-400 mt-1 text-center">
+        <p className="text-[1px] text-gray-400 mt-1 text-center">
           Imagem meramente ilustrativa.
         </p>
         <span className={`absolute top-2 right-2 ${categoryColor} text-white text-xs px-2 py-1 rounded-full font-medium`}>

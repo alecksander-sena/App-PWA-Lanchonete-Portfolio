@@ -28,6 +28,7 @@ const checkoutSchema = z.object({
   payment: z.enum(['pix', 'cash', 'card'], {
     required_error: 'Selecione uma forma de pagamento',
   }),
+  troco: z.string().optional(), // <-- Adicionado aqui
   note: z.string().optional(),
 }).superRefine((data, ctx) => {
   if (data.orderType === 'delivery') {
@@ -75,6 +76,7 @@ export default function CheckoutModal({ isOpen, onClose, onConfirm }: CheckoutMo
       orderType: 'delivery',
       address: '',
       payment: undefined,
+      troco: '', // <-- Adicionado aqui
       note: '',
     },
   });
@@ -94,6 +96,7 @@ export default function CheckoutModal({ isOpen, onClose, onConfirm }: CheckoutMo
 ${data.orderType === 'delivery' ? `*Endereço:* ${data.address}` : ''}
 ${data.note ? `*Observações:* ${data.note}` : ''}
 *Forma de pagamento:* ${paymentMethods[data.payment]}
+${data.payment === 'cash' && data.troco ? `*Troco para:* ${data.troco}` : ''}
 
 *ITENS DO PEDIDO:*
 ${itemsList}
@@ -124,6 +127,7 @@ ${itemsList}
           quantity: item.quantity,
         })),
         payment: data.payment,
+        troco: data.troco, // <-- Adicionado aqui
         orderType: data.orderType,
         note: data.note,
         subtotal,
@@ -318,6 +322,27 @@ ${itemsList}
                   </FormItem>
                 )}
               />
+
+              {/* Troco */}
+              {form.watch('payment') === 'cash' && (
+                <FormField
+                  control={form.control}
+                  name="troco"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-sm">Troco</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder="Precisa de troco para quanto?"
+                          className="form-control w-full px-3 py-1.5 border border-gray-300 rounded-lg text-sm"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
             </div>
 
             {/* Taxa de entrega fixa */}

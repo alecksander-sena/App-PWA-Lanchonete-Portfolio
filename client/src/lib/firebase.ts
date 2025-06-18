@@ -69,10 +69,26 @@ const sampleProducts: Product[] = [
     image: "https://images.unsplash.com/photo-1560130803-aaadb4bc913e?q=80&w=500",
     category: "Hambúrgueres"
   },
+  {
+    id: "8",
+    name: "CALAFRANGO",
+    description: "Pão Brioche, Frango, Calabresa, Queijo, Presunto, Tomate, Cebola e Alface",
+    price: 17.00,
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750288950/Calafrango_tqq2sa.jpg",
+    category: "Hambúrgueres"
+  },
+  {
+    id: "9",
+    name: "CALABACON",
+    description: "Pão Brioche, Calabresa, Bacon, Queijo, Presunto, Tomate, Cebola e Alface",
+    price: 17.00,
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750288950/Calabacon_utvvhh.jpg",
+    category: "Hambúrgueres"
+  },
   
   // BEBIDAS
   {
-    id: "8",
+    id: "10",
     name: "Refrigerante 1L",
     description: "Guaraná ou Pepsi",
     price: 6.50,
@@ -80,7 +96,7 @@ const sampleProducts: Product[] = [
     category: "Bebidas"
   },
   {
-    id: "9",
+    id: "11",
     name: "Refrigerante Lata 350ml",
     description: "Guaraná ou Pepsi",
     price: 4.50,
@@ -88,7 +104,7 @@ const sampleProducts: Product[] = [
     category: "Bebidas"
   },
   {
-    id: "10",
+    id: "12",
     name: "Refrigerante 200ml",
     description: "Guaraná ou Pepsi",
     price: 2.50,
@@ -96,7 +112,7 @@ const sampleProducts: Product[] = [
     category: "Bebidas"
   },
   {
-    id: "11",
+    id: "13",
     name: "Tubaina",
     description: "Refrigerante sabor tubaína",
     price: 4.00,
@@ -104,7 +120,7 @@ const sampleProducts: Product[] = [
     category: "Bebidas"
   },
   {
-    id: "12",
+    id: "14",
     name: "Guarathon",
     description: "Energético sabor guaraná",
     price: 2.00,
@@ -112,7 +128,7 @@ const sampleProducts: Product[] = [
     category: "Bebidas"
   },
   {
-    id: "13",
+    id: "15",
     name: "Golito",
     description: "Suco de Uva",
     price: 2.00,
@@ -120,7 +136,7 @@ const sampleProducts: Product[] = [
     category: "Bebidas"
   },
   {
-    id: "14",
+    id: "16",
     name: "Suco Com Água",
     description: "Polpa de Acerola, Laranja Com Acerola, Goiaba e Morango",
     price: 4.00,
@@ -128,7 +144,7 @@ const sampleProducts: Product[] = [
     category: "Bebidas"
   },
   {
-    id: "15",
+    id: "17",
     name: "Suco Com Leite",
     description: "Polpa de Acerola, Laranja Com Acerola, Goiaba e Morango",
     price: 6.00,
@@ -136,7 +152,7 @@ const sampleProducts: Product[] = [
     category: "Bebidas"
   },
   {
-    id: "16",
+    id: "18",
     name: "Água 500ml",
     description: "Água mineral sem gás",
     price: 2.00,
@@ -146,7 +162,7 @@ const sampleProducts: Product[] = [
   
   // SALGADOS
   {
-    id: "17",
+    id: "19",
     name: "Salgados Assados",
     description: "Opções: Queijo e Presunto, Calabresa ou Frango",
     price: 3.00,
@@ -154,7 +170,7 @@ const sampleProducts: Product[] = [
     category: "Salgados"
   },
   {
-    id: "18",
+    id: "20",
     name: "Salgados Fritos",
     description: "Opções: Frango ou Salsicha",
     price: 2.00,
@@ -162,7 +178,7 @@ const sampleProducts: Product[] = [
     category: "Salgados"
   },
   {
-    id: "19",
+    id: "21",
     name: "Hamburgão",
     description: "Recheado com carne de hambúrguer",
     price: 5.00,
@@ -172,7 +188,7 @@ const sampleProducts: Product[] = [
   
   // CUSCUZ
   {
-    id: "20",
+    id: "22",
     name: "Cuscuz de Carne",
     description: "Cuscuz, Carne em Cubos, Queijo e Vinagrete",
     price: 15.00,
@@ -180,7 +196,7 @@ const sampleProducts: Product[] = [
     category: "Cuscuz"
   },
   {
-    id: "21",
+    id: "23",
     name: "Cuscuz de Calabresa",
     description: "Cuscuz, Calabresa em Cubos, Queijo e Vinagrete",
     price: 15.00,
@@ -188,7 +204,7 @@ const sampleProducts: Product[] = [
     category: "Cuscuz"
   },
   {
-    id: "22",
+    id: "24",
     name: "Cuscuz de Frango",
     description: "Cuscuz, Frango Desfiado, Queijo e Vinagrete",
     price: 15.00,
@@ -196,7 +212,7 @@ const sampleProducts: Product[] = [
     category: "Cuscuz"
   },
   {
-    id: "23",
+    id: "25",
     name: "Cuscuz de Bacon",
     description: "Cuscuz, Bacon em Tiras, Queijo e Vinagrete",
     price: 15.00,
@@ -204,7 +220,7 @@ const sampleProducts: Product[] = [
     category: "Cuscuz"
   },
   {
-    id: "24",
+    id: "26",
     name: "Cuscuz de Ovo com Queijo",
     description: "Cuscuz, Ovo Frito Com Queijo e Vinagrete",
     price: 12.00,
@@ -212,7 +228,7 @@ const sampleProducts: Product[] = [
     category: "Cuscuz"
   },
   {
-    id: "25",
+    id: "27",
     name: "Cuscuz de Queijo e Presunto",
     description: "Cuscuz, Queijo, Presunto e Vinagrete",
     price: 12.00,
@@ -222,7 +238,7 @@ const sampleProducts: Product[] = [
   
   // TAPIOCA
   {
-    id: "26",
+    id: "28",
     name: "Tapioca de Carne",
     description: "Tapioca, Carne em Tiras e Queijo",
     price: 15.00,
@@ -230,7 +246,7 @@ const sampleProducts: Product[] = [
     category: "Tapioca"
   },
   {
-    id: "27",
+    id: "29",
     name: "Tapioca de Calabresa",
     description: "Tapioca, Calabresa em Cubos e Queijo",
     price: 15.00,
@@ -238,7 +254,7 @@ const sampleProducts: Product[] = [
     category: "Tapioca"
   },
   {
-    id: "28",
+    id: "30",
     name: "Tapioca de Frango",
     description: "Tapioca, Frango Desfiado e Queijo",
     price: 15.00,
@@ -246,7 +262,7 @@ const sampleProducts: Product[] = [
     category: "Tapioca"
   },
   {
-    id: "29",
+    id: "31",
     name: "Tapioca de Bacon",
     description: "Tapioca, Bacon em Tiras e Queijo",
     price: 15.00,
@@ -254,7 +270,7 @@ const sampleProducts: Product[] = [
     category: "Tapioca"
   },
   {
-    id: "30",
+    id: "32",
     name: "Tapioca de Ovo com Queijo",
     description: "Tapioca, Ovo Frito Com Queijo",
     price: 12.00,
@@ -262,7 +278,7 @@ const sampleProducts: Product[] = [
     category: "Tapioca"
   },
   {
-    id: "31",
+    id: "33",
     name: "Tapioca de Queijo e Presunto",
     description: "Tapioca, Queijo e Presunto",
     price: 12.00,
@@ -272,7 +288,7 @@ const sampleProducts: Product[] = [
   
   // ADICIONAIS
   {
-    id: "32",
+    id: "34",
     name: "Adicional de Carne",
     description: "Adicional para Cuscuz, Tapioca ou Hamburguer",
     price: 5.00,
@@ -280,7 +296,7 @@ const sampleProducts: Product[] = [
     category: "Adicionais"
   },
   {
-    id: "33",
+    id: "35",
     name: "Adicional de Calabresa",
     description: "Adicional para Cuscuz, Tapioca ou Hamburguer",
     price: 4.00,
@@ -288,7 +304,7 @@ const sampleProducts: Product[] = [
     category: "Adicionais"
   },
   {
-    id: "34",
+    id: "36",
     name: "Adicional de Frango",
     description: "Adicional para Cuscuz, Tapioca ou Hamburguer",
     price: 4.00,
@@ -296,7 +312,7 @@ const sampleProducts: Product[] = [
     category: "Adicionais"
   },
   {
-    id: "35",
+    id: "37",
     name: "Adicional de Bacon",
     description: "Adicional para Cuscuz, Tapioca ou Hamburguer",
     price: 5.00,
@@ -304,7 +320,7 @@ const sampleProducts: Product[] = [
     category: "Adicionais"
   },
   {
-    id: "36",
+    id: "38",
     name: "Adicional de Ovo",
     description: "Adicional para Cuscuz, Tapioca ou Hamburguer",
     price: 3.00,
@@ -312,7 +328,7 @@ const sampleProducts: Product[] = [
     category: "Adicionais"
   },
   {
-    id: "37",
+    id: "39",
     name: "Adicional de Queijo e Presunto",
     description: "Adicional para Cuscuz, Tapioca ou Hamburguer",
     price: 3.00,

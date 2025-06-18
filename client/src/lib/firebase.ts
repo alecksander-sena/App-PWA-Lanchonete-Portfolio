@@ -58,7 +58,7 @@ const sampleProducts: Product[] = [
     name: "XFRANGO",
     description: "Pão Brioche, Frango, Queijo, Presunto e Cebola",
     price: 15.00,
-    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/c_pad,w_500,h_500/v1750075773/Hamburguer_de_frango_f906d3.png",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750257000/Hamburguer_de_frango_zxnezs.jpg",
     category: "Hambúrgueres"
   },
   {
@@ -76,7 +76,7 @@ const sampleProducts: Product[] = [
     name: "Refrigerante 1L",
     description: "Guaraná ou Pepsi",
     price: 6.50,
-    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750110874/0122940_ovq7wl.webp",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750257000/Pepsi1L_zs4feq.jpg",
     category: "Bebidas"
   },
   {
@@ -84,7 +84,7 @@ const sampleProducts: Product[] = [
     name: "Refrigerante Lata 350ml",
     description: "Guaraná ou Pepsi",
     price: 4.50,
-    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750109154/PEPSI_20LATA_mtwqe8.png",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750257000/PEPSI_20LATA_mdtvbn.jpg",
     category: "Bebidas"
   },
   {
@@ -92,7 +92,7 @@ const sampleProducts: Product[] = [
     name: "Refrigerante 200ml",
     description: "Guaraná ou Pepsi",
     price: 2.50,
-    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750109087/ca%C3%A7ulinha_zcpv7w.webp",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750256999/ca%C3%A7ulinha_wvwc90.jpg",
     category: "Bebidas"
   },
   {
@@ -100,7 +100,7 @@ const sampleProducts: Product[] = [
     name: "Tubaina",
     description: "Refrigerante sabor tubaína",
     price: 4.00,
-    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750111749/Tubaina_S%C3%B3_Frutas_ccjtsg.png",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750257000/Tubaina_S%C3%B3_Frutas_y8heny.jpg",
     category: "Bebidas"
   },
   {
@@ -108,7 +108,7 @@ const sampleProducts: Product[] = [
     name: "Guarathon",
     description: "Energético sabor guaraná",
     price: 2.00,
-    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750105364/guarathon_jsfdny.jpg",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750256999/guarathon_nqsjsw.jpg",
     category: "Bebidas"
   },
   {
@@ -116,7 +116,7 @@ const sampleProducts: Product[] = [
     name: "Golito",
     description: "Suco de Uva",
     price: 2.00,
-    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750105353/golito_nuhkwg.jpg",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750256999/golito_ewa6ig.jpg",
     category: "Bebidas"
   },
   {
@@ -124,7 +124,7 @@ const sampleProducts: Product[] = [
     name: "Suco Com Água",
     description: "Polpa de Acerola, Laranja Com Acerola, Goiaba e Morango",
     price: 4.00,
-    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750107449/suco_com_agua_mlc3xe.png",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750257000/suco_com_agua_smwnqm.jpg",
     category: "Bebidas"
   },
   {
@@ -132,7 +132,7 @@ const sampleProducts: Product[] = [
     name: "Suco Com Leite",
     description: "Polpa de Acerola, Laranja Com Acerola, Goiaba e Morango",
     price: 6.00,
-    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750107456/suco_com_leite_y4reci.png",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750257000/suco_com_leite_ugp4wa.jpg",
     category: "Bebidas"
   },
   {
@@ -150,7 +150,7 @@ const sampleProducts: Product[] = [
     name: "Salgados Assados",
     description: "Opções: Queijo e Presunto, Calabresa ou Frango",
     price: 3.00,
-    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750117507/Salgado_Assado_djvrkj.png",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750256999/Salgado_Assado_bz3rrv.jpg",
     category: "Salgados"
   },
   {
@@ -158,7 +158,7 @@ const sampleProducts: Product[] = [
     name: "Salgados Fritos",
     description: "Opções: Frango ou Salsicha",
     price: 2.00,
-    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750117250/Salgado_Frito_jibhvn.jpg",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750256999/Salgado_Frito_ukcdvl.jpg",
     category: "Salgados"
   },
   {
@@ -166,7 +166,7 @@ const sampleProducts: Product[] = [
     name: "Hamburgão",
     description: "Recheado com carne de hambúrguer",
     price: 5.00,
-    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750116674/Hamburg%C3%A3o_k6ipr6.png",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750256999/Hamburg%C3%A3o_dcvano.jpg",
     category: "Salgados"
   },
   
@@ -176,7 +176,7 @@ const sampleProducts: Product[] = [
     name: "Cuscuz de Carne",
     description: "Cuscuz, Carne em Cubos, Queijo e Vinagrete",
     price: 15.00,
-    image: "https://images.unsplash.com/photo-1604908139878-ea46310bd375?q=80&w=500",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750257937/Cuscuz_com_carne_pnd7ar.jpg",
     category: "Cuscuz"
   },
   {
@@ -184,7 +184,7 @@ const sampleProducts: Product[] = [
     name: "Cuscuz de Calabresa",
     description: "Cuscuz, Calabresa em Cubos, Queijo e Vinagrete",
     price: 15.00,
-    image: "https://images.unsplash.com/photo-1580324990890-439f0798c2a3?q=80&w=500",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750257937/Cuscuz_com_calabresa_fzxfgf.jpg",
     category: "Cuscuz"
   },
   {
@@ -192,7 +192,7 @@ const sampleProducts: Product[] = [
     name: "Cuscuz de Frango",
     description: "Cuscuz, Frango Desfiado, Queijo e Vinagrete",
     price: 15.00,
-    image: "https://images.unsplash.com/photo-1578178344914-42614140108f?q=80&w=500",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750257937/Cuscuz_com_frango_fkyn0v.jpg",
     category: "Cuscuz"
   },
   {
@@ -200,7 +200,7 @@ const sampleProducts: Product[] = [
     name: "Cuscuz de Bacon",
     description: "Cuscuz, Bacon em Tiras, Queijo e Vinagrete",
     price: 15.00,
-    image: "https://images.unsplash.com/photo-1604908177453-7462950a6a3b?q=80&w=500",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750257937/Cuscuz_com_bacon_osxntj.jpg",
     category: "Cuscuz"
   },
   {
@@ -208,106 +208,114 @@ const sampleProducts: Product[] = [
     name: "Cuscuz de Ovo com Queijo",
     description: "Cuscuz, Ovo Frito Com Queijo e Vinagrete",
     price: 12.00,
-    image: "https://images.unsplash.com/photo-1582169296194-e4d644c48063?q=80&w=500",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750257937/Cuscuz_com_ovo_tqdhxl.jpg",
+    category: "Cuscuz"
+  },
+  {
+    id: "25",
+    name: "Cuscuz de Queijo e Presunto",
+    description: "Cuscuz, Queijo, Presunto e Vinagrete",
+    price: 12.00,
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750257937/Cuscuz_com_queijo_e_presunto_paicne.jpg",
     category: "Cuscuz"
   },
   
   // TAPIOCA
   {
-    id: "25",
+    id: "26",
     name: "Tapioca de Carne",
     description: "Tapioca, Carne em Tiras e Queijo",
     price: 15.00,
-    image: "https://images.unsplash.com/photo-1593077275023-56a6c1e9a085?q=80&w=500",
-    category: "Tapioca"
-  },
-  {
-    id: "26",
-    name: "Tapioca de Calabresa",
-    description: "Tapioca, Calabresa em Cubos e Queijo",
-    price: 15.00,
-    image: "https://images.unsplash.com/photo-1593560368921-9b9a5ff8eebd?q=80&w=500",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750263859/Tapioca_de_carne_jqghhv.jpg",
     category: "Tapioca"
   },
   {
     id: "27",
-    name: "Tapioca de Frango",
-    description: "Tapioca, Frango Desfiado e Queijo",
+    name: "Tapioca de Calabresa",
+    description: "Tapioca, Calabresa em Cubos e Queijo",
     price: 15.00,
-    image: "https://images.unsplash.com/photo-1583969430754-a4ca0cfcfc91?q=80&w=500",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750263859/Tapioca_de_calabresa_g5lunb.jpg",
     category: "Tapioca"
   },
   {
     id: "28",
-    name: "Tapioca de Bacon",
-    description: "Tapioca, Bacon em Tiras e Queijo",
+    name: "Tapioca de Frango",
+    description: "Tapioca, Frango Desfiado e Queijo",
     price: 15.00,
-    image: "https://images.unsplash.com/photo-1593450298063-cc252f7da17a?q=80&w=500",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750263860/Tapioca_de_frango_kthivy.jpg",
     category: "Tapioca"
   },
   {
     id: "29",
-    name: "Tapioca de Ovo com Queijo",
-    description: "Tapioca, Ovo Frito Com Queijo",
-    price: 12.00,
-    image: "https://images.unsplash.com/photo-1593450298099-cfd6d4403605?q=80&w=500",
+    name: "Tapioca de Bacon",
+    description: "Tapioca, Bacon em Tiras e Queijo",
+    price: 15.00,
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750263859/Tapioca_de_Bacon_ovq25g.jpg",
     category: "Tapioca"
   },
   {
     id: "30",
+    name: "Tapioca de Ovo com Queijo",
+    description: "Tapioca, Ovo Frito Com Queijo",
+    price: 12.00,
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750263860/Tapioca_de_ovo_com_queijo_s68b1l.jpg",
+    category: "Tapioca"
+  },
+  {
+    id: "31",
     name: "Tapioca de Queijo e Presunto",
     description: "Tapioca, Queijo e Presunto",
     price: 12.00,
-    image: "https://images.unsplash.com/photo-1593450297330-5b63246b6677?q=80&w=500",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750263860/Tapioca_de_queijo_e_presunto_qfb4mh.jpg",
     category: "Tapioca"
   },
   
   // ADICIONAIS
   {
-    id: "31",
+    id: "32",
     name: "Adicional de Carne",
-    description: "Adicional para Cuscuz e Tapioca",
+    description: "Adicional para Cuscuz, Tapioca ou Hamburguer",
     price: 5.00,
     image: "https://images.unsplash.com/photo-1609525313344-a56b96f0a00e?q=80&w=500",
     category: "Adicionais"
   },
   {
-    id: "32",
+    id: "33",
     name: "Adicional de Calabresa",
-    description: "Adicional para Cuscuz e Tapioca",
-    price: 3.00,
+    description: "Adicional para Cuscuz, Tapioca ou Hamburguer",
+    price: 4.00,
     image: "https://images.unsplash.com/photo-1567620832903-9fc6debc209f?q=80&w=500",
     category: "Adicionais"
   },
   {
-    id: "33",
+    id: "34",
     name: "Adicional de Frango",
-    description: "Adicional para Cuscuz e Tapioca",
-    price: 5.00,
+    description: "Adicional para Cuscuz, Tapioca ou Hamburguer",
+    price: 4.00,
     image: "https://images.unsplash.com/photo-1527477396000-e27163b481c2?q=80&w=500",
     category: "Adicionais"
   },
   {
-    id: "34",
+    id: "35",
     name: "Adicional de Bacon",
-    description: "Adicional para Cuscuz e Tapioca",
-    price: 4.00,
+    description: "Adicional para Cuscuz, Tapioca ou Hamburguer",
+    price: 5.00,
     image: "https://images.unsplash.com/photo-1497051788611-2c64812349fa?q=80&w=500",
     category: "Adicionais"
   },
   {
-    id: "35",
+    id: "36",
     name: "Adicional de Ovo",
-    description: "Adicional para Cuscuz e Tapioca",
+    description: "Adicional para Cuscuz, Tapioca ou Hamburguer",
     price: 3.00,
     image: "https://images.unsplash.com/photo-1607690424560-35d7c9c10edf?q=80&w=500",
     category: "Adicionais"
   },
   {
-    id: "36",
+    id: "37",
     name: "Adicional de Queijo e Presunto",
-    description: "Adicional para Cuscuz e Tapioca",
-    price: 5.00,
+    description: "Adicional para Cuscuz, Tapioca ou Hamburguer",
+    price: 3.00,
     image: "https://images.unsplash.com/photo-1586478069717-89235e068ebb?q=80&w=500",
     category: "Adicionais"
   }

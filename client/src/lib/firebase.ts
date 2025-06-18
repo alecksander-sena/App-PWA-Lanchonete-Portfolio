@@ -276,7 +276,7 @@ const sampleProducts: Product[] = [
     name: "Adicional de Carne",
     description: "Adicional para Cuscuz, Tapioca ou Hamburguer",
     price: 5.00,
-    image: "https://images.unsplash.com/photo-1609525313344-a56b96f0a00e?q=80&w=500",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750286234/carne_frita_pfcbmt.jpg",
     category: "Adicionais"
   },
   {
@@ -284,7 +284,7 @@ const sampleProducts: Product[] = [
     name: "Adicional de Calabresa",
     description: "Adicional para Cuscuz, Tapioca ou Hamburguer",
     price: 4.00,
-    image: "https://images.unsplash.com/photo-1567620832903-9fc6debc209f?q=80&w=500",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750286233/calabresa_mqw0gm.jpg",
     category: "Adicionais"
   },
   {
@@ -292,7 +292,7 @@ const sampleProducts: Product[] = [
     name: "Adicional de Frango",
     description: "Adicional para Cuscuz, Tapioca ou Hamburguer",
     price: 4.00,
-    image: "https://images.unsplash.com/photo-1527477396000-e27163b481c2?q=80&w=500",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750286233/frango_wvxu3s.jpg",
     category: "Adicionais"
   },
   {
@@ -300,7 +300,7 @@ const sampleProducts: Product[] = [
     name: "Adicional de Bacon",
     description: "Adicional para Cuscuz, Tapioca ou Hamburguer",
     price: 5.00,
-    image: "https://images.unsplash.com/photo-1497051788611-2c64812349fa?q=80&w=500",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750286222/bacon_yytjlc.jpg",
     category: "Adicionais"
   },
   {
@@ -308,7 +308,7 @@ const sampleProducts: Product[] = [
     name: "Adicional de Ovo",
     description: "Adicional para Cuscuz, Tapioca ou Hamburguer",
     price: 3.00,
-    image: "https://images.unsplash.com/photo-1607690424560-35d7c9c10edf?q=80&w=500",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750286224/ovo_arke7v.jpg",
     category: "Adicionais"
   },
   {
@@ -316,7 +316,7 @@ const sampleProducts: Product[] = [
     name: "Adicional de Queijo e Presunto",
     description: "Adicional para Cuscuz, Tapioca ou Hamburguer",
     price: 3.00,
-    image: "https://images.unsplash.com/photo-1586478069717-89235e068ebb?q=80&w=500",
+    image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750286233/queijo_e_presunto_viknug.jpg",
     category: "Adicionais"
   }
 ];

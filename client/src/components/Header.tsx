@@ -126,22 +126,7 @@ export default function Header({
             <Search size={22} />
           </button>
 
-          {/* LOGIN */}
-          <div className="ml-2">
-            {!isLoggedIn ? (
-              <button
-                className="px-4 py-1 rounded-md bg-[#af1a2d] text-white font-sans text-sm hover:bg-[#c02e41] transition whitespace-nowrap"
-                onClick={onLogin}
-              >
-                Login
-              </button>
-            ) : (
-              <div className="flex items-center gap-1">
-                <span className="font-sans text-sm text-gray-700">{userName ?? "Proprietário"}</span>
-                <span className="bg-[#af1a2d] text-white px-2 py-0.5 rounded-full text-xs">Logado</span>
-              </div>
-            )}
-          </div>
+          {/* BOTÃO DE LOGIN */}
         </div>
       </div>
       

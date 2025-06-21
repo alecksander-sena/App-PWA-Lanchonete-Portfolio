@@ -10,12 +10,17 @@ interface CartDrawerProps {
   onCheckout: () => void;
 }
 
+function getItemKey(item: any) {
+  // Garante chave única por produto + variação
+  return item.id + (item.selectedVariations ? JSON.stringify(item.selectedVariations) : '');
+}
+
 export default function CartDrawer({ isOpen, onClose, onCheckout }: CartDrawerProps) {
-  const { 
-    cart, 
-    updateQuantity, 
-    totalItems, 
-    subtotal, 
+  const {
+    cart,
+    updateQuantity,
+    totalItems,
+    subtotal,
   } = useCart();
 
   // Disable body scroll when cart is open
@@ -25,14 +30,19 @@ export default function CartDrawer({ isOpen, onClose, onCheckout }: CartDrawerPr
     } else {
       document.body.classList.remove('overflow-hidden');
     }
-    
+
     return () => {
       document.body.classList.remove('overflow-hidden');
     };
   }, [isOpen]);
 
+  // Novo: função para atualizar quantidade respeitando variações
+  function handleUpdateQuantity(item: any, newQuantity: number) {
+    updateQuantity(item.id, newQuantity, item.selectedVariations);
+  }
+
   return (
-    <div 
+    <div
       className={`fixed inset-y-0 right-0 w-full md:w-96 bg-white shadow-xl z-50 transform ${
         isOpen ? 'translate-x-0' : 'translate-x-full'
       } cart-transition`}
@@ -40,7 +50,7 @@ export default function CartDrawer({ isOpen, onClose, onCheckout }: CartDrawerPr
       <div className="flex flex-col h-full">
         <div className="p-4 border-b">
           <div className="flex justify-between items-center">
-            <button 
+            <button
               className="p-2 flex items-center text-gray-600 hover:text-gray-900"
               onClick={onClose}
               aria-label="Voltar"
@@ -49,7 +59,7 @@ export default function CartDrawer({ isOpen, onClose, onCheckout }: CartDrawerPr
               <span className="text-sm">Voltar</span>
             </button>
             <h2 className="text-xl font-poppins font-semibold absolute left-1/2 transform -translate-x-1/2">Seu Pedido</h2>
-            <button 
+            <button
               className="p-2 text-gray-600 hover:text-gray-900"
               onClick={onClose}
               aria-label="Fechar"
@@ -58,7 +68,7 @@ export default function CartDrawer({ isOpen, onClose, onCheckout }: CartDrawerPr
             </button>
           </div>
         </div>
-        
+
         <div className="flex-1 overflow-y-auto p-4 space-y-4">
           {/* Cart is empty state */}
           {totalItems === 0 ? (
@@ -76,15 +86,15 @@ export default function CartDrawer({ isOpen, onClose, onCheckout }: CartDrawerPr
           ) : (
             <div className="space-y-4">
               {cart.map((item) => (
-                <div 
-                  key={item.id + JSON.stringify(item.selectedVariations)} 
+                <div
+                  key={getItemKey(item)}
                   className="cart-item flex justify-between items-center bg-gray-50 p-3 rounded-lg"
                 >
                   <div className="flex items-center">
                     <div className="w-16 h-16 bg-gray-200 rounded-md overflow-hidden mr-3">
-                      <img 
-                        src={item.image} 
-                        alt={item.name} 
+                      <img
+                        src={item.image}
+                        alt={item.name}
                         className="w-full h-full object-cover"
                         onError={(e) => {
                           const target = e.target as HTMLImageElement;
@@ -109,17 +119,17 @@ export default function CartDrawer({ isOpen, onClose, onCheckout }: CartDrawerPr
                     </div>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <button 
+                    <button
                       className="w-8 h-8 flex items-center justify-center bg-gray-200 rounded-full hover:bg-gray-300"
-                      onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                      onClick={() => handleUpdateQuantity(item, item.quantity - 1)}
                       aria-label="Diminuir quantidade"
                     >
                       <Minus size={16} />
                     </button>
                     <span className="w-5 text-center">{item.quantity}</span>
-                    <button 
+                    <button
                       className="w-8 h-8 flex items-center justify-center bg-gray-200 rounded-full hover:bg-gray-300"
-                      onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                      onClick={() => handleUpdateQuantity(item, item.quantity + 1)}
                       aria-label="Aumentar quantidade"
                     >
                       <Plus size={16} />
@@ -130,7 +140,7 @@ export default function CartDrawer({ isOpen, onClose, onCheckout }: CartDrawerPr
             </div>
           )}
         </div>
-        
+
         <div className="p-4 border-t">
           <div className="mb-4">
             <div className="flex justify-between mb-2">

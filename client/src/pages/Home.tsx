@@ -111,9 +111,14 @@ export default function Home() {
     return (
       <div>
         {categories.map((category) => {
-          const categoryProducts = filteredProducts.filter(
-            (p) => p.category === category
-          );
+          // Aplica filtro e ordenação por preço conforme o sortBy selecionado
+          const categoryProducts = filteredProducts
+            .filter((p) => p.category === category)
+            .sort((a, b) => {
+              if (sortBy === "price-asc") return a.price - b.price;
+              if (sortBy === "price-desc") return b.price - a.price;
+              return a.name.localeCompare(b.name);
+            });
 
           if (categoryProducts.length === 0) return null;
 

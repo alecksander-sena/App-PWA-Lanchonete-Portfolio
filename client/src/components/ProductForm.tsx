@@ -17,7 +17,7 @@ export default function ProductForm({ onProductCreated }: { onProductCreated: ()
   // Campos para adicionar variação
   const [variationName, setVariationName] = useState("");
   const [variationOptions, setVariationOptions] = useState("");
-  
+
   // Manipula campos do formulário
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setProduto({ ...produto, [e.target.name]: e.target.value });
@@ -33,10 +33,19 @@ export default function ProductForm({ onProductCreated }: { onProductCreated: ()
     formData.append("file", file);
     formData.append("upload_preset", UPLOAD_PRESET);
 
-    const res = await fetch(CLOUDINARY_URL, { method: "POST", body: formData });
-    const data = await res.json();
-    setProduto(prod => ({ ...prod, image: data.secure_url }));
-    setUploading(false);
+    try {
+      const res = await fetch(CLOUDINARY_URL, { method: "POST", body: formData });
+      const data = await res.json();
+      if (data.secure_url) {
+        setProduto(prod => ({ ...prod, image: data.secure_url }));
+      } else {
+        alert("Erro ao enviar imagem. Tente novamente.");
+      }
+    } catch {
+      alert("Erro ao enviar imagem. Verifique sua conexão.");
+    } finally {
+      setUploading(false);
+    }
   };
 
   // Adiciona uma variação ao produto
@@ -46,7 +55,7 @@ export default function ProductForm({ onProductCreated }: { onProductCreated: ()
       ...prod,
       variations: [
         ...prod.variations,
-        { name: variationName, options: variationOptions.split(",").map(o => o.trim()).filter(Boolean) }
+        { name: variationName.trim(), options: variationOptions.split(",").map(o => o.trim()).filter(Boolean) }
       ]
     }));
     setVariationName("");
@@ -65,7 +74,9 @@ export default function ProductForm({ onProductCreated }: { onProductCreated: ()
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Aqui você salva no Firestore (ajuste conforme seu projeto)
-    alert("Produto cadastrado (implemente o envio para o banco)!");
+    // Exemplo de integração Firestore:
+    // await addDoc(collection(db, "products"), { ...produto, price: Number(produto.price) });
+    alert("Produto cadastrado! (implemente o envio para o banco)");
     if (onProductCreated) onProductCreated();
     setProduto({
       name: "",
@@ -79,10 +90,40 @@ export default function ProductForm({ onProductCreated }: { onProductCreated: ()
 
   return (
     <form onSubmit={handleSubmit} className="max-w-md mx-auto bg-white rounded-lg p-6 shadow-md space-y-4">
-      <input name="name" value={produto.name} onChange={handleChange} placeholder="Nome do produto" className="input" required />
-      <input name="price" value={produto.price} onChange={handleChange} placeholder="Preço" className="input" type="number" min="0" required />
-      <textarea name="description" value={produto.description} onChange={handleChange} placeholder="Descrição" className="input" required />
-      <select name="category" value={produto.category} onChange={handleChange} className="input" required>
+      <input
+        name="name"
+        value={produto.name}
+        onChange={handleChange}
+        placeholder="Nome do produto"
+        className="input"
+        required
+      />
+      <input
+        name="price"
+        value={produto.price}
+        onChange={handleChange}
+        placeholder="Preço"
+        className="input"
+        type="number"
+        min="0"
+        step="0.01"
+        required
+      />
+      <textarea
+        name="description"
+        value={produto.description}
+        onChange={handleChange}
+        placeholder="Descrição"
+        className="input"
+        required
+      />
+      <select
+        name="category"
+        value={produto.category}
+        onChange={handleChange}
+        className="input"
+        required
+      >
         <option value="">Selecione a categoria</option>
         <option value="Hambúrgueres">Hambúrgueres</option>
         <option value="Bebidas">Bebidas</option>
@@ -91,7 +132,12 @@ export default function ProductForm({ onProductCreated }: { onProductCreated: ()
         <option value="Tapioca">Tapioca</option>
         <option value="Adicionais">Adicionais</option>
       </select>
-      <input type="file" accept="image/*" onChange={handleImageChange} className="input" />
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleImageChange}
+        className="input"
+      />
       {uploading && <p>Enviando imagem...</p>}
       {produto.image && <img src={produto.image} alt="Prévia" className="w-24 h-24 object-cover rounded" />}
 

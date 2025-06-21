@@ -28,7 +28,7 @@ const checkoutSchema = z.object({
   payment: z.enum(['pix', 'cash', 'card'], {
     required_error: 'Selecione uma forma de pagamento',
   }),
-  troco: z.string().optional(), // <-- Adicionado aqui
+  troco: z.string().optional(),
   note: z.string().optional(),
 }).superRefine((data, ctx) => {
   if (data.orderType === 'delivery') {
@@ -76,16 +76,23 @@ export default function CheckoutModal({ isOpen, onClose, onConfirm }: CheckoutMo
       orderType: 'delivery',
       address: '',
       payment: undefined,
-      troco: '', // <-- Adicionado aqui
+      troco: '',
       note: '',
     },
   });
 
   // ======== Geração de mensagem do WhatsApp ========
   function generateWhatsAppMessage(data: CheckoutFormValues) {
-    const itemsList = cart.map(item =>
-      `- ${item.name} x${item.quantity}: ${(item.price * item.quantity).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`
-    ).join('\n');
+    const itemsList = cart.map(item => {
+      const variationText = item.selectedVariations
+        ? " (" +
+          Object.entries(item.selectedVariations)
+            .map(([k, v]) => `${k}: ${v}`)
+            .join(", ") +
+          ")"
+        : "";
+      return `- ${item.name}${variationText} x${item.quantity}: ${(item.price * item.quantity).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`;
+    }).join('\n');
 
     return `
 *NOVO PEDIDO*
@@ -112,6 +119,9 @@ ${itemsList}
     setIsSubmitting(true);
 
     try {
+      // Salva telefone do cliente para histórico sem login
+      localStorage.setItem('userPhone', data.phone);
+
       const order = {
         customer: {
           name: data.name,
@@ -125,9 +135,10 @@ ${itemsList}
           name: item.name,
           price: item.price,
           quantity: item.quantity,
+          selectedVariations: item.selectedVariations || undefined,
         })),
         payment: data.payment,
-        troco: data.troco, // <-- Adicionado aqui
+        troco: data.troco,
         orderType: data.orderType,
         note: data.note,
         subtotal,
@@ -168,18 +179,17 @@ ${itemsList}
       <div className="bg-white rounded-xl w-full max-w-md mx-4 md:mx-0 max-h-[90vh] overflow-y-auto">
         <div className="p-4 border-b sticky top-0 bg-white z-10">
           <div className="flex justify-between items-center">
-            <h2 className="text-lg font-poppins font-semibold">Finalizar Pedido</h2> {/* Fonte menor */}
+            <h2 className="text-lg font-poppins font-semibold">Finalizar Pedido</h2>
             <button className="p-2" onClick={onClose}>
               <i className="ri-close-line text-xl"></i>
             </button>
           </div>
         </div>
-
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="p-4 space-y-4"> {/* padding e espaçamento menores */}
+          <form onSubmit={form.handleSubmit(onSubmit)} className="p-4 space-y-4">
             {/* Dados do cliente */}
             <div className="space-y-3">
-              <h3 className="font-poppins font-medium text-base">Seus dados</h3> {/* Fonte menor */}
+              <h3 className="font-poppins font-medium text-base">Seus dados</h3>
               <FormField
                 control={form.control}
                 name="name"
@@ -343,6 +353,27 @@ ${itemsList}
                   )}
                 />
               )}
+            </div>
+
+            {/* Resumo dos itens do pedido */}
+            <div className="mt-4">
+              <h4 className="font-semibold text-sm mb-2">Resumo do pedido:</h4>
+              <ul className="text-xs text-gray-700 space-y-1">
+                {cart.map(item => (
+                  <li key={item.id + JSON.stringify(item.selectedVariations)}>
+                    <span>
+                      {item.name}
+                      {item.selectedVariations &&
+                        <span className="text-xs text-gray-500">
+                          {" (" + Object.values(item.selectedVariations).join(", ") + ")"}
+                        </span>
+                      }
+                      {" x" + item.quantity}
+                    </span>
+                    <span className="ml-2">R$ {(item.price * item.quantity).toFixed(2)}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
 
             {/* Taxa de entrega fixa */}

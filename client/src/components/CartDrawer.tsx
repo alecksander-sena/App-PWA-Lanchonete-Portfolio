@@ -77,7 +77,7 @@ export default function CartDrawer({ isOpen, onClose, onCheckout }: CartDrawerPr
             <div className="space-y-4">
               {cart.map((item) => (
                 <div 
-                  key={item.id} 
+                  key={item.id + JSON.stringify(item.selectedVariations)} 
                   className="cart-item flex justify-between items-center bg-gray-50 p-3 rounded-lg"
                 >
                   <div className="flex items-center">
@@ -93,7 +93,16 @@ export default function CartDrawer({ isOpen, onClose, onCheckout }: CartDrawerPr
                       />
                     </div>
                     <div>
-                      <h4 className="font-medium">{item.name}</h4>
+                      <h4 className="font-medium">
+                        {item.name}
+                        {item.selectedVariations && (
+                          <span className="block text-xs text-gray-500">
+                            {Object.entries(item.selectedVariations)
+                              .map(([name, value]) => `${name}: ${value}`)
+                              .join(', ')}
+                          </span>
+                        )}
+                      </h4>
                       <p className="text-[#af1a2d] font-semibold text-sm">
                         {formatCurrency(item.price)}
                       </p>

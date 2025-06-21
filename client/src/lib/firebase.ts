@@ -200,6 +200,8 @@ const sampleProducts: Product[] = [
       {
         name: "Sabor da Fruta",
         options: [
+          "Tradicional",
+          "Limão",
           "Acerola",
           "Laranja Com Acerola",
           "Goiaba",

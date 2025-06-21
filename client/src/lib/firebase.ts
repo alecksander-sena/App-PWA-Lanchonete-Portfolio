@@ -138,18 +138,48 @@ const sampleProducts: Product[] = [
   {
     id: "16",
     name: "Suco Com Água",
-    description: "Polpa de Acerola, Laranja Com Acerola, Goiaba e Morango",
+    description: "Copo de 300ml",
     price: 4.00,
     image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750257000/suco_com_agua_smwnqm.jpg",
-    category: "Bebidas"
+    category: "Bebidas",
+    variations: [
+      {
+        name: "Polpa de",
+        options: [
+          "Acerola",
+          "Laranja Com Acerola",
+          "Goiaba",
+          "Abacaxi",
+          "Abacaxi com Hortelã",
+          "Graviola",
+          "Cupuaçu",
+          "Morango"
+        ]
+      }
+    ]
   },
   {
     id: "17",
     name: "Suco Com Leite",
-    description: "Polpa de Acerola, Laranja Com Acerola, Goiaba e Morango",
+    description: "Copo de 300ml",
     price: 6.00,
     image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750257000/suco_com_leite_ugp4wa.jpg",
-    category: "Bebidas"
+    category: "Bebidas",
+    variations: [
+      {
+        name: "Polpa de",
+        options: [
+          "Acerola",
+          "Laranja Com Acerola",
+          "Goiaba",
+          "Abacaxi",
+          "Abacaxi com Hortelã",
+          "Graviola",
+          "Cupuaçu",
+          "Morango"
+        ]
+      }
+    ]
   },
   {
     id: "18",
@@ -165,7 +195,22 @@ const sampleProducts: Product[] = [
     description: "Caldo de cana natural 500ml",
     price: 7.00,
     image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750511204/Caldo_de_Cana_Gourmet_le6pnz.jpg",
-    category: "Bebidas"
+    category: "Bebidas",
+    variations: [
+      {
+        name: "Sabor da Fruta",
+        options: [
+          "Acerola",
+          "Laranja Com Acerola",
+          "Goiaba",
+          "Abacaxi",
+          "Abacaxi com Hortelã",
+          "Graviola",
+          "Cupuaçu",
+          "Morango"
+        ]
+      }
+    ]
   },
   
   // SALGADOS

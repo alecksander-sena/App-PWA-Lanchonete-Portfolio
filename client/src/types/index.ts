@@ -5,6 +5,10 @@ export interface Product {
   price: number;
   image: string;
   category: string;
+  variations?: {
+    name: string;
+    options: string[];
+  }[];
 }
 
 export interface CartItem extends Product {

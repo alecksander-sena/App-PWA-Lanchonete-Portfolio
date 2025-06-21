@@ -10,9 +10,14 @@ export default function ProductForm({ onProductCreated }: { onProductCreated: ()
     description: "",
     category: "",
     image: "",
+    variations: [] as { name: string; options: string[] }[],
   });
   const [uploading, setUploading] = useState(false);
 
+  // Campos para adicionar variação
+  const [variationName, setVariationName] = useState("");
+  const [variationOptions, setVariationOptions] = useState("");
+  
   // Manipula campos do formulário
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setProduto({ ...produto, [e.target.name]: e.target.value });
@@ -34,12 +39,32 @@ export default function ProductForm({ onProductCreated }: { onProductCreated: ()
     setUploading(false);
   };
 
+  // Adiciona uma variação ao produto
+  const handleAddVariation = () => {
+    if (!variationName || !variationOptions) return;
+    setProduto(prod => ({
+      ...prod,
+      variations: [
+        ...prod.variations,
+        { name: variationName, options: variationOptions.split(",").map(o => o.trim()).filter(Boolean) }
+      ]
+    }));
+    setVariationName("");
+    setVariationOptions("");
+  };
+
+  // Remove uma variação
+  const handleRemoveVariation = (index: number) => {
+    setProduto(prod => ({
+      ...prod,
+      variations: prod.variations.filter((_, i) => i !== index)
+    }));
+  };
+
   // Envia para o Firestore (Ajuste para seu backend)
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Aqui você salva no Firestore (ajuste conforme seu projeto)
-    // Exemplo:
-    // await addDoc(collection(db, "products"), produto)
     alert("Produto cadastrado (implemente o envio para o banco)!");
     if (onProductCreated) onProductCreated();
     setProduto({
@@ -48,6 +73,7 @@ export default function ProductForm({ onProductCreated }: { onProductCreated: ()
       description: "",
       category: "",
       image: "",
+      variations: [],
     });
   };
 
@@ -68,6 +94,40 @@ export default function ProductForm({ onProductCreated }: { onProductCreated: ()
       <input type="file" accept="image/*" onChange={handleImageChange} className="input" />
       {uploading && <p>Enviando imagem...</p>}
       {produto.image && <img src={produto.image} alt="Prévia" className="w-24 h-24 object-cover rounded" />}
+
+      {/* Campos para variações */}
+      <div className="space-y-2">
+        <div className="flex gap-2">
+          <input
+            type="text"
+            placeholder="Nome da variação (ex: Sabor)"
+            value={variationName}
+            onChange={e => setVariationName(e.target.value)}
+            className="input flex-1"
+          />
+          <input
+            type="text"
+            placeholder="Opções (separe por vírgula)"
+            value={variationOptions}
+            onChange={e => setVariationOptions(e.target.value)}
+            className="input flex-1"
+          />
+          <button type="button" onClick={handleAddVariation} className="btn-primary px-3">Adicionar</button>
+        </div>
+        {/* Lista de variações adicionadas */}
+        {produto.variations.length > 0 && (
+          <ul className="space-y-1">
+            {produto.variations.map((v, i) => (
+              <li key={i} className="flex items-center gap-2 text-sm">
+                <span className="font-semibold">{v.name}:</span>
+                <span>{v.options.join(", ")}</span>
+                <button type="button" onClick={() => handleRemoveVariation(i)} className="text-red-500 text-xs">Remover</button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
       <button type="submit" className="btn-primary">Cadastrar Produto</button>
     </form>
   );

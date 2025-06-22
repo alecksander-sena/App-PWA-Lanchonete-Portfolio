@@ -18,7 +18,8 @@ export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState("Todos");
   const [searchQuery, setSearchQuery] = useState("");
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 100]);
-  const [sortBy, setSortBy] = useState<"price-asc" | "price-desc" | "name">("name");
+  // ALTERADO: default "price-desc" para ordenar do maior para o menor preço
+  const [sortBy, setSortBy] = useState<"price-asc" | "price-desc" | "name">("price-desc");
 
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -73,6 +74,7 @@ export default function Home() {
       return matchesCategory && matchesSearch && matchesPrice;
     })
     .sort((a, b) => {
+      // ALTERADO: padrão agora é "price-desc" (maior para menor)
       if (sortBy === "price-asc") return a.price - b.price;
       if (sortBy === "price-desc") return b.price - a.price;
       return a.name.localeCompare(b.name);
@@ -111,14 +113,10 @@ export default function Home() {
     return (
       <div>
         {categories.map((category) => {
-          // Aplica filtro e ordenação por preço conforme o sortBy selecionado
+          // ORDENAR POR PREÇO DESC dentro de cada categoria
           const categoryProducts = filteredProducts
             .filter((p) => p.category === category)
-            .sort((a, b) => {
-              if (sortBy === "price-asc") return a.price - b.price;
-              if (sortBy === "price-desc") return b.price - a.price;
-              return a.name.localeCompare(b.name);
-            });
+            .sort((a, b) => b.price - a.price);
 
           if (categoryProducts.length === 0) return null;
 

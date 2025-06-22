@@ -18,7 +18,7 @@ export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState("Todos");
   const [searchQuery, setSearchQuery] = useState("");
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 100]);
-  // ALTERADO: default "price-desc" para ordenar do maior para o menor preço
+  // Default: ordenar do maior para o menor preço
   const [sortBy, setSortBy] = useState<"price-asc" | "price-desc" | "name">("price-desc");
 
   const [products, setProducts] = useState<Product[]>([]);
@@ -59,9 +59,16 @@ export default function Home() {
     loadProducts();
   }, []);
 
+  // Função de ordenação dinâmica conforme sortBy
+  const sortProducts = (arr: Product[]) => {
+    if (sortBy === "price-asc") return [...arr].sort((a, b) => a.price - b.price);
+    if (sortBy === "price-desc") return [...arr].sort((a, b) => b.price - a.price);
+    return [...arr].sort((a, b) => a.name.localeCompare(b.name));
+  };
+
   // Filtrar produtos por categoria, busca e preço
-  const filteredProducts = products
-    .filter((product: Product) => {
+  const filteredProducts = sortProducts(
+    products.filter((product: Product) => {
       const matchesCategory =
         selectedCategory === "Todos" || product.category === selectedCategory;
       const matchesSearch =
@@ -73,12 +80,7 @@ export default function Home() {
 
       return matchesCategory && matchesSearch && matchesPrice;
     })
-    .sort((a, b) => {
-      // ALTERADO: padrão agora é "price-desc" (maior para menor)
-      if (sortBy === "price-asc") return a.price - b.price;
-      if (sortBy === "price-desc") return b.price - a.price;
-      return a.name.localeCompare(b.name);
-    });
+  );
 
   // Manipuladores para o carrinho
   const openCart = () => setIsCartOpen(true);
@@ -98,7 +100,7 @@ export default function Home() {
   };
   const closeConfirmation = () => setIsConfirmationOpen(false);
 
-  // Manipulador para agrupar produtos por categoria quando estiver na visualização "Todos"
+  // Agrupar produtos por categoria quando na visualização "Todos"
   const renderProductsByCategory = () => {
     if (selectedCategory !== "Todos") {
       return (
@@ -113,10 +115,10 @@ export default function Home() {
     return (
       <div>
         {categories.map((category) => {
-          // ORDENAR POR PREÇO DESC dentro de cada categoria
-          const categoryProducts = filteredProducts
-            .filter((p) => p.category === category)
-            .sort((a, b) => b.price - a.price);
+          // Sempre ordena por sortBy do filtro
+          const categoryProducts = sortProducts(
+            filteredProducts.filter((p) => p.category === category)
+          );
 
           if (categoryProducts.length === 0) return null;
 

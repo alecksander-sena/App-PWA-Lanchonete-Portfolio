@@ -191,8 +191,8 @@ const sampleProducts: Product[] = [
   },
   {
     id: "19",
-    name: "Caldo de Cana",
-    description: "Caldo de Cana de 500ml Tradicional ou com Sabor da Fruta",
+    name: "Caldo de Cana 500ml",
+    description: "Caldo de Cana Tradicional ou com Sabor da Fruta",
     price: 7.00,
     image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750511204/Caldo_de_Cana_Gourmet_le6pnz.jpg",
     category: "Bebidas",

@@ -169,11 +169,11 @@ export default function Header({
                 <button
                   key={cat.id}
                   onClick={() => {
-                    onSelectCategory(cat.nome); // Isso deve setar "Todos" corretamente
+                    onSelectCategory(cat.nome.trim()); // Remove espaços extras
                     setMenuOpen(false);
                   }}
                   className={`w-full text-left font-sans px-4 py-2 rounded-md text-base transition-colors ${
-                    selectedCategory === cat.nome
+                    selectedCategory.trim() === cat.nome.trim()
                       ? "bg-[#af1a2d] text-white"
                       : "bg-gray-100 text-gray-800 hover:bg-[#af1a2d] hover:text-white"
                   }`}

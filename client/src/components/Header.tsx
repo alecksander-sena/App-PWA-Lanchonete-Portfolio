@@ -169,7 +169,7 @@ export default function Header({
                 <button
                   key={cat.id}
                   onClick={() => {
-                    onSelectCategory(cat.nome);
+                    onSelectCategory(cat.nome); // Isso deve setar "Todos" corretamente
                     setMenuOpen(false);
                   }}
                   className={`w-full text-left font-sans px-4 py-2 rounded-md text-base transition-colors ${

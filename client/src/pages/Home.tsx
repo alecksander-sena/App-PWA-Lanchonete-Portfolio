@@ -140,6 +140,14 @@ export default function Home() {
     );
   };
 
+  // Exemplo de controle no componente pai
+  const [isCartOrCheckoutOpen, setIsCartOrCheckoutOpen] = useState(false);
+
+  function handleOpenCart() {
+    setIsCartOrCheckoutOpen(true); // Isso faz a barra sumir
+    // ...abrir modal/carrinho...
+  }
+
   return (
     <div className="bg-gray-50 min-h-screen">
       <Header
@@ -208,7 +216,10 @@ export default function Home() {
       {/* Barra inferior só aparece se o carrinho NÃO estiver aberto */}
       {!isCartOpen && (
         <div className="lg:hidden">
-          <BottomCartBar onOpenCart={openCart} />
+          <BottomCartBar
+            onOpenCart={handleOpenCart}
+            isCartOrCheckoutOpen={isCartOrCheckoutOpen}
+          />
         </div>
       )}
 

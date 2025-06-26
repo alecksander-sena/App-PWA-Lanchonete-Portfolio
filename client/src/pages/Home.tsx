@@ -144,8 +144,8 @@ export default function Home() {
   const [isCartOrCheckoutOpen, setIsCartOrCheckoutOpen] = useState(false);
 
   function handleOpenCart() {
-    setIsCartOrCheckoutOpen(true); // Isso faz a barra sumir
-    // ...abrir modal/carrinho...
+    setIsCartOrCheckoutOpen(true); // Esconde a barra
+    setIsCartOpen(true);           // Abre o carrinho!
   }
 
   return (

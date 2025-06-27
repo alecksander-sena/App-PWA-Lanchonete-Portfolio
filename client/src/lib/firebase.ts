@@ -254,18 +254,10 @@ const sampleProducts: Product[] = [
   {
     id: "22",
     name: "Hamburgão",
-    description: "Recheado com carne de hambúrguer",
+    description: "Recheado com carne de hambúrguer e queijo",
     price: 5.00,
     image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750256999/Hamburg%C3%A3o_dcvano.jpg",
-    category: "Salgados",
-    variations: [
-      {
-        name: "Sabor",
-        options: [
-          "Carne de Hambúrguer"
-        ]
-      }
-    ]
+    category: "Salgados"
   },
   
   // CUSCUZ

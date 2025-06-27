@@ -1,175 +1,45 @@
-import { useState, useEffect, useRef } from 'react';
-import { Product } from '@/types';
-import { useCart } from '@/context/CartContext';
-import { formatCurrency } from '@/lib/utils';
-import { Plus, X as CloseIcon } from 'lucide-react';
+import { formatCurrency } from "@/lib/utils";
+import { Plus } from "lucide-react";
+import { Product } from "@/types";
 
 interface ProductCardProps {
   product: Product;
-}
-
-// Modal com X, cancelar e fecha ao clicar fora
-function VariationModal({
-  open,
-  onClose,
-  product,
-  onConfirm,
-}: {
-  open: boolean;
-  onClose: () => void;
-  product: Product;
-  onConfirm: (variationChoice: { [variationName: string]: string }) => void;
-}) {
-  const [choices, setChoices] = useState<{ [key: string]: string }>(
-    () =>
-      product.variations?.reduce((acc, variation) => {
-        acc[variation.name] = variation.options[0] ?? '';
-        return acc;
-      }, {} as { [key: string]: string }) || {}
-  );
-
-  const modalRef = useRef<HTMLDivElement>(null);
-
-  // Travar o scroll do body enquanto modal está aberto
-  useEffect(() => {
-    if (open) {
-      document.body.style.overflow = 'hidden';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [open]);
-
-  // Fecha modal ao clicar fora dele
-  useEffect(() => {
-    if (!open) return;
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        modalRef.current &&
-        !modalRef.current.contains(event.target as Node)
-      ) {
-        onClose();
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [open, onClose]);
-
-  if (!open) return null;
-
-  return (
-    <div
-      className="fixed inset-0 flex items-center justify-center z-[1000] bg-black/40"
-      tabIndex={-1}
-      aria-modal="true"
-      role="dialog"
-    >
-      <div
-        ref={modalRef}
-        className="bg-white rounded-xl shadow-lg p-6 w-full max-w-xs relative max-h-[90vh] overflow-y-auto"
-        style={{ minWidth: 320 }}
-        onClick={e => e.stopPropagation()}
-      >
-        <button
-          className="absolute right-3 top-3 text-gray-500 hover:text-gray-900 transition"
-          onClick={onClose}
-          aria-label="Fechar"
-          type="button"
-        >
-          <CloseIcon size={22} />
-        </button>
-        <h3 className="text-lg font-bold mb-2 text-center">Escolha as opções</h3>
-        {product.variations?.map((variation) => (
-          <div className="mb-4" key={variation.name}>
-            <label className="block font-semibold mb-1">{variation.name}</label>
-            <select
-              value={choices[variation.name]}
-              onChange={(e) =>
-                setChoices((ch) => ({
-                  ...ch,
-                  [variation.name]: e.target.value,
-                }))
-              }
-              className="border px-2 py-1 rounded w-full"
-            >
-              {variation.options.map((opt) => (
-                <option value={opt} key={opt}>
-                  {opt}
-                </option>
-              ))}
-            </select>
-          </div>
-        ))}
-        <div className="flex gap-2 mt-4 justify-end">
-          <button
-            className="px-4 py-2 rounded bg-gray-100 hover:bg-gray-200"
-            onClick={onClose}
-            type="button"
-          >
-            Cancelar
-          </button>
-          <button
-            className="px-4 py-2 rounded bg-[#af1a2d] text-white hover:bg-[#9a1626]"
-            onClick={() => {
-              onConfirm(choices);
-              onClose();
-            }}
-            type="button"
-          >
-            Adicionar
-          </button>
-        </div>
-      </div>
-    </div>
-  );
+  onAddWithVariation: (product: Product) => void;
+  onAddSimple: (product: Product) => void;
 }
 
 const getCategoryColor = (category: string): string => {
   switch (category) {
-    case 'Hambúrgueres':
-      return 'bg-[#af1a2d]';
-    case 'Bebidas':
-      return 'bg-[#3498db]';
-    case 'Salgados':
-      return 'bg-[#e67e22]';
-    case 'Cuscuz':
-      return 'bg-[#27ae60]';
-    case 'Tapioca':
-      return 'bg-[#9b59b6]';
-    case 'Adicionais':
-      return 'bg-[#f1c40f]';
+    case "Hambúrgueres":
+      return "bg-[#af1a2d]";
+    case "Bebidas":
+      return "bg-[#3498db]";
+    case "Salgados":
+      return "bg-[#e67e22]";
+    case "Cuscuz":
+      return "bg-[#27ae60]";
+    case "Tapioca":
+      return "bg-[#9b59b6]";
+    case "Adicionais":
+      return "bg-[#f1c40f]";
     default:
-      return 'bg-[#eea530]';
+      return "bg-[#eea530]";
   }
 };
 
-export default function ProductCard({ product }: ProductCardProps) {
-  const { addToCart } = useCart();
-  const [showModal, setShowModal] = useState(false);
+export default function ProductCard({ product, onAddWithVariation, onAddSimple }: ProductCardProps) {
   const categoryColor = getCategoryColor(product.category);
 
   function handleAddToCart() {
     if (product.variations && product.variations.length > 0) {
-      setShowModal(true);
+      onAddWithVariation(product);
     } else {
-      addToCart(product);
+      onAddSimple(product);
     }
-  }
-
-  function handleConfirmVariation(choices: { [variationName: string]: string }) {
-    addToCart({ ...product, selectedVariations: choices });
   }
 
   return (
     <div className="product-card bg-white rounded-xl shadow-md overflow-hidden">
-      <VariationModal
-        open={showModal}
-        onClose={() => setShowModal(false)}
-        product={product}
-        onConfirm={handleConfirmVariation}
-      />
       <div className="w-full h-48 bg-gray-200 relative">
         <img
           src={product.image}
@@ -177,7 +47,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           className="w-full h-full object-cover"
           onError={(e) => {
             const target = e.target as HTMLImageElement;
-            target.src = 'https://via.placeholder.com/400x300?text=Imagem+indisponível';
+            target.src = "https://via.placeholder.com/400x300?text=Imagem+indisponível";
           }}
         />
         <p className="text-[10px] text-gray-400 mt-1 text-center">

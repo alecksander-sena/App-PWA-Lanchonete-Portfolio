@@ -1,6 +1,9 @@
-import { Product } from '@/types';
-import ProductCard from './ProductCard';
-import { Skeleton } from '@/components/ui/skeleton';
+import { useState } from "react";
+import ProductCard from "./ProductCard";
+import VariationModal from "./VariationModal";
+import { useCart } from "@/context/CartContext";
+import { Product } from "@/types";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface ProductGridProps {
   products: Product[];
@@ -9,6 +12,28 @@ interface ProductGridProps {
 }
 
 export default function ProductGrid({ products, isLoading, error }: ProductGridProps) {
+  const [modalProduct, setModalProduct] = useState<Product | null>(null);
+  const { addToCart } = useCart();
+
+  function handleOpenModal(product: Product) {
+    setModalProduct(product);
+  }
+
+  function handleCloseModal() {
+    setModalProduct(null);
+  }
+
+  function handleConfirmVariation(choices: { [variationName: string]: string }) {
+    if (modalProduct) {
+      addToCart({ ...modalProduct, selectedVariations: choices });
+    }
+    setModalProduct(null);
+  }
+
+  function handleAddSimple(product: Product) {
+    addToCart(product);
+  }
+
   if (isLoading) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
@@ -46,8 +71,19 @@ export default function ProductGrid({ products, isLoading, error }: ProductGridP
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
       {products.map((product) => (
-        <ProductCard key={product.id} product={product} />
+        <ProductCard
+          key={product.id}
+          product={product}
+          onAddWithVariation={handleOpenModal}
+          onAddSimple={handleAddSimple}
+        />
       ))}
+      <VariationModal
+        open={!!modalProduct}
+        product={modalProduct}
+        onClose={handleCloseModal}
+        onConfirm={handleConfirmVariation}
+      />
     </div>
   );
 }

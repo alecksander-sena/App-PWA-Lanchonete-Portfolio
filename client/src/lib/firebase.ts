@@ -222,7 +222,17 @@ const sampleProducts: Product[] = [
     description: "Opções: Queijo e Presunto, Calabresa ou Frango",
     price: 3.00,
     image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750256999/Salgado_Assado_bz3rrv.jpg",
-    category: "Salgados"
+    category: "Salgados",
+    variations: [
+      {
+        name: "Sabor",
+        options: [
+          "Queijo e Presunto",
+          "Calabresa",
+          "Frango"
+        ]
+      }
+    ]
   },
   {
     id: "21",
@@ -230,7 +240,16 @@ const sampleProducts: Product[] = [
     description: "Opções: Frango ou Salsicha",
     price: 2.00,
     image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750256999/Salgado_Frito_ukcdvl.jpg",
-    category: "Salgados"
+    category: "Salgados",
+    variations: [
+      {
+        name: "Sabor",
+        options: [
+          "Frango",
+          "Salsicha"
+        ]
+      }
+    ]
   },
   {
     id: "22",
@@ -238,7 +257,15 @@ const sampleProducts: Product[] = [
     description: "Recheado com carne de hambúrguer",
     price: 5.00,
     image: "https://res.cloudinary.com/dxkaqghiy/image/upload/v1750256999/Hamburg%C3%A3o_dcvano.jpg",
-    category: "Salgados"
+    category: "Salgados",
+    variations: [
+      {
+        name: "Sabor",
+        options: [
+          "Carne de Hambúrguer"
+        ]
+      }
+    ]
   },
   
   // CUSCUZ

@@ -28,6 +28,8 @@ function VariationModal({
       }, {} as { [key: string]: string }) || {}
   );
 
+  const modalRef = useRef<HTMLDivElement>(null);
+
   // Evita scroll do body quando modal está aberto
   useEffect(() => {
     if (open) {
@@ -40,21 +42,29 @@ function VariationModal({
     };
   }, [open]);
 
+  // Fecha modal ao clicar fora dele
+  useEffect(() => {
+    if (!open) return;
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        onClose();
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [open, onClose]);
+
   if (!open) return null;
 
-  // NOVO: Fecha só se clicar no backdrop
-  function handleBackdropClick(e: React.MouseEvent<HTMLDivElement>) {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
-  }
-
   return (
-    <div
-      className="fixed inset-0 flex items-center justify-center z-50 bg-black/40"
-      onClick={handleBackdropClick}
-    >
+    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/40">
       <div
+        ref={modalRef}
         className="bg-white rounded-xl shadow-lg p-6 w-full max-w-xs relative max-h-[90vh] overflow-y-auto"
         style={{ minWidth: 320 }}
       >

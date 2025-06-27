@@ -8,7 +8,7 @@ interface ProductCardProps {
   product: Product;
 }
 
-// Modal robusto, só abre/fecha por clique
+// Modal com X, cancelar e fecha ao clicar fora
 function VariationModal({
   open,
   onClose,
@@ -30,7 +30,7 @@ function VariationModal({
 
   const modalRef = useRef<HTMLDivElement>(null);
 
-  // Trava o scroll do body quando o modal está aberto
+  // Travar o scroll do body enquanto modal está aberto
   useEffect(() => {
     if (open) {
       document.body.style.overflow = 'hidden';
@@ -40,7 +40,7 @@ function VariationModal({
     };
   }, [open]);
 
-  // Fecha modal ao clicar fora dele (só se o modal está aberto)
+  // Fecha modal ao clicar fora dele
   useEffect(() => {
     if (!open) return;
     function handleClickOutside(event: MouseEvent) {
@@ -52,10 +52,11 @@ function VariationModal({
       }
     }
     document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, [open, onClose]);
 
-  // Garante que só abre/fecha por clique
   if (!open) return null;
 
   return (
@@ -64,13 +65,11 @@ function VariationModal({
       tabIndex={-1}
       aria-modal="true"
       role="dialog"
-      // Nenhum evento de mouseover, mouseenter, focus!
     >
       <div
         ref={modalRef}
         className="bg-white rounded-xl shadow-lg p-6 w-full max-w-xs relative max-h-[90vh] overflow-y-auto"
         style={{ minWidth: 320 }}
-        // Impede propagação de qualquer evento do mouse para o fundo
         onClick={e => e.stopPropagation()}
       >
         <button
@@ -206,7 +205,6 @@ export default function ProductCard({ product }: ProductCardProps) {
           className="btn-primary mt-4 w-full bg-[#af1a2d] text-white py-2 rounded-lg font-medium flex items-center justify-center space-x-2 hover:bg-[#9a1626] transition-colors"
           onClick={handleAddToCart}
           type="button"
-          // Nenhum evento de mouseover/focus!
         >
           <Plus size={18} />
           <span>Adicionar</span>

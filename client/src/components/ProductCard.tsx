@@ -1,14 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Product } from '@/types';
 import { useCart } from '@/context/CartContext';
 import { formatCurrency } from '@/lib/utils';
-import { Plus } from 'lucide-react';
+import { Plus, X as CloseIcon } from 'lucide-react';
 
 interface ProductCardProps {
   product: Product;
 }
 
-// Modal simples para escolher variação
+// Modal melhorado para escolher variação/sabor
 function VariationModal({
   open,
   onClose,
@@ -28,12 +28,55 @@ function VariationModal({
       }, {} as { [key: string]: string }) || {}
   );
 
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  // Evita scroll do body quando modal está aberto
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [open]);
+
+  // Fecha modal ao clicar fora dele
+  useEffect(() => {
+    if (!open) return;
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        onClose();
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [open, onClose]);
+
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/30">
-      <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-xs">
-        <h3 className="text-lg font-bold mb-2">Escolha as opções</h3>
+    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/40">
+      <div
+        ref={modalRef}
+        className="bg-white rounded-xl shadow-lg p-6 w-full max-w-xs relative max-h-[90vh] overflow-y-auto"
+        style={{ minWidth: 320 }}
+      >
+        <button
+          className="absolute right-3 top-3 text-gray-500 hover:text-gray-900 transition"
+          onClick={onClose}
+          aria-label="Fechar"
+          type="button"
+        >
+          <CloseIcon size={22} />
+        </button>
+        <h3 className="text-lg font-bold mb-2 text-center">Escolha as opções</h3>
         {product.variations?.map((variation) => (
           <div className="mb-4" key={variation.name}>
             <label className="block font-semibold mb-1">{variation.name}</label>
@@ -59,12 +102,17 @@ function VariationModal({
           <button
             className="px-4 py-2 rounded bg-gray-100 hover:bg-gray-200"
             onClick={onClose}
+            type="button"
           >
             Cancelar
           </button>
           <button
             className="px-4 py-2 rounded bg-[#af1a2d] text-white hover:bg-[#9a1626]"
-            onClick={() => onConfirm(choices)}
+            onClick={() => {
+              onConfirm(choices);
+              onClose();
+            }}
+            type="button"
           >
             Adicionar
           </button>
@@ -108,7 +156,6 @@ export default function ProductCard({ product }: ProductCardProps) {
   }
 
   function handleConfirmVariation(choices: { [variationName: string]: string }) {
-    setShowModal(false);
     // Inclui as escolhas dentro do product antes de adicionar ao carrinho
     addToCart({ ...product, selectedVariations: choices });
   }

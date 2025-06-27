@@ -2,6 +2,9 @@ import { useState } from "react";
 import { useCart } from "@/context/CartContext";
 import { Search } from "lucide-react";
 
+// Use o array de categorias global!
+import { categories } from "@/lib/firebase";
+
 interface HeaderProps {
   openCart: () => void;
   onSelectCategory: (category: string) => void;
@@ -13,22 +16,11 @@ interface HeaderProps {
   setSearchQuery: (value: string) => void;
 }
 
-const categorias = [
-  { nome: "Adicionais", id: "adicionais" },
-  { nome: "Bebidas", id: "bebidas" },
-  { nome: "Cuscuz", id: "cuscuz" },
-  { nome: "Hambúrgueres", id: "hamburgueres" },
-  { nome: "Salgados", id: "salgados" },
-  { nome: "Tapioca", id: "tapioca" },
-  { nome: "Todos", id: "todos" },
-];
-
-// Ordenação: "Todos" primeiro, depois os outros em ordem alfabética
+// Ordenação: "Todos" primeiro, depois "Combos", depois o resto em ordem alfabética
 const categoriasOrdenadas = [
-  categorias.find((cat) => cat.nome === "Todos")!, // "Todos" sempre primeiro
-  ...categorias
-    .filter((cat) => cat.nome !== "Todos")
-    .sort((a, b) => a.nome.localeCompare(b.nome)),
+  categories.find((cat) => cat === "Todos")!,
+  categories.find((cat) => cat === "Combos")!,
+  ...categories.filter((cat) => cat !== "Todos" && cat !== "Combos").sort((a, b) => a.localeCompare(b)),
 ];
 
 export default function Header({
@@ -83,16 +75,16 @@ export default function Header({
         <nav className="hidden md:flex flex-wrap gap-1 mx-2 min-w-0">
           {categoriasOrdenadas.map((cat) => (
             <button
-              key={cat.id}
-              onClick={() => onSelectCategory(cat.nome)}
+              key={cat}
+              onClick={() => onSelectCategory(cat)}
               className={`font-sans text-xs px-3 py-1 rounded-full transition-colors truncate max-w-[110px] ${
-                selectedCategory === cat.nome
+                selectedCategory === cat
                   ? "bg-[#af1a2d] text-white"
                   : "bg-gray-100 text-gray-800 hover:bg-[#af1a2d] hover:text-white"
               }`}
               style={{ minWidth: 0 }}
             >
-              {cat.nome}
+              {cat}
             </button>
           ))}
         </nav>
@@ -142,8 +134,6 @@ export default function Header({
           >
             <Search size={22} />
           </button>
-
-          {/* BOTÃO DE LOGIN */}
         </div>
       </div>
 
@@ -191,18 +181,18 @@ export default function Header({
             <nav className="flex flex-col gap-2 mt-6">
               {categoriasOrdenadas.map((cat) => (
                 <button
-                  key={cat.id}
+                  key={cat}
                   onClick={() => {
-                    onSelectCategory(cat.nome.trim()); // Remove espaços extras
+                    onSelectCategory(cat);
                     setMenuOpen(false);
                   }}
                   className={`w-full text-left font-sans px-4 py-2 rounded-md text-base transition-colors ${
-                    selectedCategory.trim() === cat.nome.trim()
+                    selectedCategory === cat
                       ? "bg-[#af1a2d] text-white"
                       : "bg-gray-100 text-gray-800 hover:bg-[#af1a2d] hover:text-white"
                   }`}
                 >
-                  {cat.nome}
+                  {cat}
                 </button>
               ))}
             </nav>

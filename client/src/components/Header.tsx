@@ -23,6 +23,7 @@ const categorias = [
   { nome: "Todos", id: "todos" },
 ];
 
+// Ordenação: "Todos" primeiro, depois os outros em ordem alfabética
 const categoriasOrdenadas = [
   categorias.find((cat) => cat.nome === "Todos")!, // "Todos" sempre primeiro
   ...categorias

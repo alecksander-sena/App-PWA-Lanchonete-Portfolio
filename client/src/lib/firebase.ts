@@ -1,7 +1,9 @@
 import { Product, Order } from "@/types";
 
-// Lista de categorias disponíveis
+// Lista de categorias disponíveis (agora inclui "Combos" e "Todos")
 export const categories = [
+  "Todos",
+  "Combos",
   "Hambúrgueres",
   "Bebidas",
   "Salgados",
@@ -9,6 +11,7 @@ export const categories = [
   "Tapioca",
   "Adicionais"
 ];
+
 
 // Produtos com dados reais
 const sampleProducts: Product[] = [

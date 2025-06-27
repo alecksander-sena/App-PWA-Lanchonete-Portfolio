@@ -23,9 +23,12 @@ const categorias = [
   { nome: "Todos", id: "todos" },
 ];
 
-const categoriasOrdenadas = [...categorias].sort((a, b) =>
-  a.nome.localeCompare(b.nome)
-);
+const categoriasOrdenadas = [
+  categorias.find((cat) => cat.nome === "Todos")!, // "Todos" sempre primeiro
+  ...categorias
+    .filter((cat) => cat.nome !== "Todos")
+    .sort((a, b) => a.nome.localeCompare(b.nome)),
+];
 
 export default function Header({
   openCart,
@@ -50,7 +53,14 @@ export default function Header({
           onClick={() => setMenuOpen((v) => !v)}
           aria-label="Abrir menu"
         >
-          <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+          <svg
+            width="28"
+            height="28"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+          >
             <path strokeLinecap="round" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
@@ -63,7 +73,9 @@ export default function Header({
             className="h-10 w-10 rounded-full object-cover"
             style={{ background: "#fff" }}
           />
-          <span className="font-sans font-bold text-lg md:text-2xl text-black truncate">Pedidos Fácil</span>
+          <span className="font-sans font-bold text-lg md:text-2xl text-black truncate">
+            Pedidos Fácil
+          </span>
         </div>
 
         {/* MENU DE CATEGORIAS - DESKTOP APENAS */}
@@ -91,7 +103,11 @@ export default function Header({
         <div className="flex items-center gap-2 flex-shrink-0 min-w-0">
           {/* CARRINHO - SÓ NO DESKTOP */}
           <div className="hidden lg:block">
-            <button id="cartButton" className="relative p-2" onClick={openCart}>
+            <button
+              id="cartButton"
+              className="relative p-2"
+              onClick={openCart}
+            >
               <img
                 src="/carrinho.png"
                 alt="Carrinho"
@@ -129,7 +145,7 @@ export default function Header({
           {/* BOTÃO DE LOGIN */}
         </div>
       </div>
-      
+
       {/* BARRA DE BUSCA MOBILE (expandida ao clicar na lupa) */}
       {mobileSearch && (
         <div className="md:hidden px-4 py-2 bg-white border-b">
@@ -160,7 +176,14 @@ export default function Header({
               onClick={() => setMenuOpen(false)}
               aria-label="Fechar menu"
             >
-              <svg width="28" height="28" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <svg
+                width="28"
+                height="28"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
                 <path strokeLinecap="round" d="M6 6l12 12M6 18L18 6" />
               </svg>
             </button>

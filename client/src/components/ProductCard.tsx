@@ -8,7 +8,7 @@ interface ProductCardProps {
   product: Product;
 }
 
-// Modal melhorado para escolher variação/sabor
+// Modal robusto, só abre/fecha por clique
 function VariationModal({
   open,
   onClose,
@@ -30,19 +30,17 @@ function VariationModal({
 
   const modalRef = useRef<HTMLDivElement>(null);
 
-  // Evita scroll do body quando modal está aberto
+  // Trava o scroll do body quando o modal está aberto
   useEffect(() => {
     if (open) {
       document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
     }
     return () => {
       document.body.style.overflow = '';
     };
   }, [open]);
 
-  // Fecha modal ao clicar fora dele
+  // Fecha modal ao clicar fora dele (só se o modal está aberto)
   useEffect(() => {
     if (!open) return;
     function handleClickOutside(event: MouseEvent) {
@@ -54,19 +52,26 @@ function VariationModal({
       }
     }
     document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [open, onClose]);
 
+  // Garante que só abre/fecha por clique
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/40">
+    <div
+      className="fixed inset-0 flex items-center justify-center z-[1000] bg-black/40"
+      tabIndex={-1}
+      aria-modal="true"
+      role="dialog"
+      // Nenhum evento de mouseover, mouseenter, focus!
+    >
       <div
         ref={modalRef}
         className="bg-white rounded-xl shadow-lg p-6 w-full max-w-xs relative max-h-[90vh] overflow-y-auto"
         style={{ minWidth: 320 }}
+        // Impede propagação de qualquer evento do mouse para o fundo
+        onClick={e => e.stopPropagation()}
       >
         <button
           className="absolute right-3 top-3 text-gray-500 hover:text-gray-900 transition"
@@ -122,7 +127,6 @@ function VariationModal({
   );
 }
 
-// Função para definir a cor do selo de categoria
 const getCategoryColor = (category: string): string => {
   switch (category) {
     case 'Hambúrgueres':
@@ -156,7 +160,6 @@ export default function ProductCard({ product }: ProductCardProps) {
   }
 
   function handleConfirmVariation(choices: { [variationName: string]: string }) {
-    // Inclui as escolhas dentro do product antes de adicionar ao carrinho
     addToCart({ ...product, selectedVariations: choices });
   }
 
@@ -202,6 +205,8 @@ export default function ProductCard({ product }: ProductCardProps) {
         <button
           className="btn-primary mt-4 w-full bg-[#af1a2d] text-white py-2 rounded-lg font-medium flex items-center justify-center space-x-2 hover:bg-[#9a1626] transition-colors"
           onClick={handleAddToCart}
+          type="button"
+          // Nenhum evento de mouseover/focus!
         >
           <Plus size={18} />
           <span>Adicionar</span>

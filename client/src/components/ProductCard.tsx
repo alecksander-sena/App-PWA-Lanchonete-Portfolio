@@ -6,6 +6,7 @@ interface ProductCardProps {
   product: Product;
   onAddWithVariation: (product: Product) => void;
   onAddSimple: (product: Product) => void;
+   isOpen: boolean;
 }
 
 const getCategoryColor = (category: string): string => {
@@ -27,7 +28,7 @@ const getCategoryColor = (category: string): string => {
   }
 };
 
-export default function ProductCard({ product, onAddWithVariation, onAddSimple }: ProductCardProps) {
+export default function ProductCard({ product, onAddWithVariation, onAddSimple, isOpen }: ProductCardProps) {
   const categoryColor = getCategoryColor(product.category);
 
   function handleAddToCart() {
@@ -72,7 +73,10 @@ export default function ProductCard({ product, onAddWithVariation, onAddSimple }
           </div>
         </div>
         <button
-          className="btn-primary mt-4 w-full bg-[#af1a2d] text-white py-2 rounded-lg font-medium flex items-center justify-center space-x-2 hover:bg-[#9a1626] transition-colors"
+          disabled={!isOpen}
+          className={`btn-primary mt-4 w-full bg-[#af1a2d] text-white py-2 rounded-lg font-medium flex items-center justify-center space-x-2
+            hover:bg-[#9a1626] transition-colors
+            ${!isOpen ? "opacity-60 cursor-not-allowed" : ""}`}
           onClick={handleAddToCart}
           type="button"
         >

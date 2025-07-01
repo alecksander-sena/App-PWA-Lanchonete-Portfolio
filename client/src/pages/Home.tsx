@@ -1,3 +1,6 @@
+import { useOpeningHours } from "../hooks/useOpeningHours";
+import ClosedModal from "../components/ClosedModal";
+import OpeningStatusBar from "../components/OpeningStatusBar";
 import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import ProductGrid from "@/components/ProductGrid";
@@ -10,6 +13,8 @@ import { Product } from "@/types";
 import { SlidersHorizontal } from "lucide-react";
 
 export default function Home() {
+  const { isOpen, showClosedModal, closeModal } = useOpeningHours();
+
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
@@ -108,6 +113,7 @@ export default function Home() {
           products={filteredProducts}
           isLoading={isLoading}
           error={error as Error}
+          isOpen={isOpen}
         />
       );
     }
@@ -132,6 +138,7 @@ export default function Home() {
                 products={categoryProducts}
                 isLoading={isLoading}
                 error={null}
+                isOpen={isOpen}
               />
             </div>
           );
@@ -229,6 +236,9 @@ export default function Home() {
           onClick={closeCart}
         ></div>
       )}
+
+      <OpeningStatusBar isOpen={isOpen} />
+      <ClosedModal open={showClosedModal} onClose={closeModal} />
     </div>
   );
 }

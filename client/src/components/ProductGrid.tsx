@@ -9,6 +9,7 @@ interface ProductGridProps {
   products: Product[];
   isLoading: boolean;
   error: Error | null;
+  isOpen: boolean; // Adicione esta linha
 }
 
 export default function ProductGrid({ products, isLoading, error }: ProductGridProps) {
@@ -76,6 +77,7 @@ export default function ProductGrid({ products, isLoading, error }: ProductGridP
           product={product}
           onAddWithVariation={handleOpenModal}
           onAddSimple={handleAddSimple}
+          isOpen={open}
         />
       ))}
       <VariationModal

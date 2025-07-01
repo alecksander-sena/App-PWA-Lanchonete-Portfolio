@@ -1,12 +1,15 @@
 export default function OpeningStatusBar({ isOpen }: { isOpen: boolean }) {
   return (
     <div
-      className={`w-full text-center py-1 px-2 text-sm font-medium opening-status-bar
-        ${isOpen ? "bg-green-100 text-green-900" : "bg-[#af1a2d] text-white"}`}
+      className={`w-full text-center py-2 font-semibold ${
+        isOpen
+          ? "bg-green-100 text-green-800"
+          : "bg-red-100 text-red-800"
+      }`}
     >
       {isOpen
-        ? "✅ Estamos aceitando pedidos! Atendemos até 21h"
-        : "⏰ No momento estamos fechados para pedidos"}
+        ? "✅ Estamos aceitando pedidos! Estamos abertos entre 07h - 13:30h e 17h - 21h"
+        : "⏰ No momento estamos fechados para pedidos. Volte mais tarde!"}
     </div>
   );
 }

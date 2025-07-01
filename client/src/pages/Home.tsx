@@ -1,6 +1,6 @@
 import { useOpeningHours } from "../hooks/useOpeningHours";
 import ClosedModal from "../components/ClosedModal";
-import OpeningStatusBar from "../components/OpeningStatusBar";
+import OpeningStatusBar from "@/components/OpeningStatusBar";
 import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import ProductGrid from "@/components/ProductGrid";
@@ -168,6 +168,8 @@ export default function Home() {
         setSearchQuery={setSearchQuery}
       />
 
+      <OpeningStatusBar isOpen={isOpen} />
+
       <main className="container mx-auto px-4 py-6 relative">
         {/* Produtos */}
         {renderProductsByCategory()}
@@ -237,7 +239,6 @@ export default function Home() {
         ></div>
       )}
 
-      <OpeningStatusBar isOpen={isOpen} />
       <ClosedModal open={showClosedModal} onClose={closeModal} />
     </div>
   );

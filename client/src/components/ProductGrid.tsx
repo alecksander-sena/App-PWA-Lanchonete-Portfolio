@@ -12,7 +12,7 @@ interface ProductGridProps {
   isOpen: boolean; // Adicione esta linha
 }
 
-export default function ProductGrid({ products, isLoading, error }: ProductGridProps) {
+export default function ProductGrid({ products, isLoading, error, isOpen }: ProductGridProps) {
   const [modalProduct, setModalProduct] = useState<Product | null>(null);
   const { addToCart } = useCart();
 

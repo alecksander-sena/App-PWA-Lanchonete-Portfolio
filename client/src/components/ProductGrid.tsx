@@ -77,7 +77,7 @@ export default function ProductGrid({ products, isLoading, error }: ProductGridP
           product={product}
           onAddWithVariation={handleOpenModal}
           onAddSimple={handleAddSimple}
-          isOpen={open}
+          isOpen={isOpen} // CERTO
         />
       ))}
       <VariationModal

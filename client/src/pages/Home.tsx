@@ -223,11 +223,11 @@ export default function Home() {
       />
 
       {/* Barra inferior só aparece se o carrinho NÃO estiver aberto */}
-      {!isCartOpen && (
+      {!isCartOpen && !isCheckoutOpen && (
         <div className="lg:hidden">
           <BottomCartBar
             onOpenCart={handleOpenCart}
-            isCartOrCheckoutOpen={isCartOrCheckoutOpen}
+            isCartOrCheckoutOpen={isCartOpen || isCheckoutOpen}
           />
         </div>
       )}

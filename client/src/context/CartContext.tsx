@@ -82,7 +82,8 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   }, []);
 
   const clearCart = useCallback(() => {
-    setCart([]);
+    setCart([]); // Limpa o estado do carrinho
+    localStorage.removeItem("cart"); // Limpa o localStorage
   }, []);
 
   const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
@@ -90,6 +91,12 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     (total, item) => total + item.price * item.quantity,
     0
   );
+
+  function handleOrderConfirm() {
+    // ...lógica de finalização do pedido...
+    setCart([]);
+    localStorage.removeItem("cart");
+  }
 
   return (
     <CartContext.Provider value={{

@@ -10,7 +10,6 @@ import BottomCartBar from "@/components/BottomCartBar";
 import { fetchProducts, categories } from "@/lib/firebase";
 import { Product } from "@/types";
 import { SlidersHorizontal } from "lucide-react";
-import BannerCarousel from "@/components/BannerCarousel";
 
 export default function Home() {
   const { isOpen, showClosedModal, closeModal } = useOpeningHours();
@@ -168,17 +167,11 @@ export default function Home() {
   const hoje = new Date().getDay();
   const ofertaDoDia = ofertas[hoje];
 
-  // Últimos pedidos (exemplo, substitua pelo real)
-  const ultimosPedidos = [
-    { nome: "Hambúrguer Artesanal", descricao: "Pedido feito há 2h" },
-    { nome: "Combo Família", descricao: "Pedido feito ontem" },
-  ];
+  // Últimos pedidos (Puxa os pedidos do localStorage)
+  const ultimosPedidos = JSON.parse(localStorage.getItem("ultimosPedidos") || "[]");
 
-  // Combos (exemplo, substitua pelo real)
-  const combos = [
-    { nome: "Combo Família", descricao: "2 Hambúrgueres + 2 Refrigerantes por R$39,90" },
-    { nome: "Combo Econômico", descricao: "1 Salgado + 1 Suco por R$9,90" },
-  ];
+  // Combos (Puxa os Combos da lista de produtos)
+  const combos = products.filter(p => p.category === "Combos");
 
   const bannerElements = [
     (
@@ -188,7 +181,7 @@ export default function Home() {
         <span>{ofertaDoDia.descricao}</span>
       </div>
     ),
-    (
+    ultimosPedidos.length > 0 ? (
       <div className="bg-blue-100 text-blue-900 rounded-lg shadow p-4 text-center font-semibold">
         <span className="text-lg">🛒 Últimos pedidos</span>
         <ul className="mt-2">
@@ -197,18 +190,18 @@ export default function Home() {
           ))}
         </ul>
       </div>
-    ),
-    (
+    ) : null,
+    combos.length > 0 ? (
       <div className="bg-green-100 text-green-900 rounded-lg shadow p-4 text-center font-semibold">
         <span className="text-lg">🥪 Combos</span>
         <ul className="mt-2">
           {combos.map((combo, i) => (
-            <li key={i}>{combo.nome} <span className="text-xs text-gray-600">({combo.descricao})</span></li>
+            <li key={i}>{combo.name} <span className="text-xs text-gray-600">R$ {combo.price.toFixed(2)}</span></li>
           ))}
         </ul>
       </div>
-    ),
-  ];
+    ) : null,
+  ].filter(Boolean); // Remove banners nulos
 
   return (
     <div className="bg-gray-50 min-h-screen">
@@ -222,9 +215,6 @@ export default function Home() {
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
       />
-
-      {/* Adicione o BannerCarousel aqui */}
-      <BannerCarousel banners={bannerElements} />
 
       <main className="container mx-auto px-4 py-6 relative">
         {/* Produtos */}

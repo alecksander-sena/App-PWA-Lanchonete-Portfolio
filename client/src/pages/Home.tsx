@@ -1,6 +1,5 @@
 import { useOpeningHours } from "../hooks/useOpeningHours";
 import ClosedModal from "../components/ClosedModal";
-import OpeningStatusBar from "@/components/OpeningStatusBar";
 import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import ProductGrid from "@/components/ProductGrid";
@@ -11,6 +10,7 @@ import BottomCartBar from "@/components/BottomCartBar";
 import { fetchProducts, categories } from "@/lib/firebase";
 import { Product } from "@/types";
 import { SlidersHorizontal } from "lucide-react";
+import BannerCarousel from "@/components/BannerCarousel";
 
 export default function Home() {
   const { isOpen, showClosedModal, closeModal } = useOpeningHours();
@@ -155,6 +155,61 @@ export default function Home() {
     setIsCartOpen(true);           // Abre o carrinho!
   }
 
+  // Oferta do dia
+  const ofertas = {
+    0: { nome: "Oferta de Domingo", descricao: "Desconto especial no Combo Família!" },
+    1: { nome: "Oferta de Segunda", descricao: "Hambúrguer em dobro na segunda-feira!" },
+    2: { nome: "Oferta de Terça", descricao: "Suco grátis em pedidos acima de R$20!" },
+    3: { nome: "Oferta de Quarta", descricao: "Cuscuz com 10% OFF!" },
+    4: { nome: "Oferta de Quinta", descricao: "Tapioca recheada com preço especial!" },
+    5: { nome: "Oferta de Sexta", descricao: "Combo Sexta Maluca: Salgado + Bebida!" },
+    6: { nome: "Oferta de Sábado", descricao: "Desconto em todos os combos!" },
+  };
+  const hoje = new Date().getDay();
+  const ofertaDoDia = ofertas[hoje];
+
+  // Últimos pedidos (exemplo, substitua pelo real)
+  const ultimosPedidos = [
+    { nome: "Hambúrguer Artesanal", descricao: "Pedido feito há 2h" },
+    { nome: "Combo Família", descricao: "Pedido feito ontem" },
+  ];
+
+  // Combos (exemplo, substitua pelo real)
+  const combos = [
+    { nome: "Combo Família", descricao: "2 Hambúrgueres + 2 Refrigerantes por R$39,90" },
+    { nome: "Combo Econômico", descricao: "1 Salgado + 1 Suco por R$9,90" },
+  ];
+
+  const bannerElements = [
+    (
+      <div className="bg-yellow-100 text-yellow-900 rounded-lg shadow p-4 text-center font-semibold">
+        <span className="text-lg">🌟 {ofertaDoDia.nome}</span>
+        <br />
+        <span>{ofertaDoDia.descricao}</span>
+      </div>
+    ),
+    (
+      <div className="bg-blue-100 text-blue-900 rounded-lg shadow p-4 text-center font-semibold">
+        <span className="text-lg">🛒 Últimos pedidos</span>
+        <ul className="mt-2">
+          {ultimosPedidos.map((pedido, i) => (
+            <li key={i}>{pedido.nome} <span className="text-xs text-gray-600">({pedido.descricao})</span></li>
+          ))}
+        </ul>
+      </div>
+    ),
+    (
+      <div className="bg-green-100 text-green-900 rounded-lg shadow p-4 text-center font-semibold">
+        <span className="text-lg">🥪 Combos</span>
+        <ul className="mt-2">
+          {combos.map((combo, i) => (
+            <li key={i}>{combo.nome} <span className="text-xs text-gray-600">({combo.descricao})</span></li>
+          ))}
+        </ul>
+      </div>
+    ),
+  ];
+
   return (
     <div className="bg-gray-50 min-h-screen">
       <Header
@@ -168,7 +223,8 @@ export default function Home() {
         setSearchQuery={setSearchQuery}
       />
 
-      <OpeningStatusBar isOpen={isOpen} />
+      {/* Adicione o BannerCarousel aqui */}
+      <BannerCarousel banners={bannerElements} />
 
       <main className="container mx-auto px-4 py-6 relative">
         {/* Produtos */}

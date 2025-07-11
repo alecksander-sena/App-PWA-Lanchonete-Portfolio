@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useCallback, useEffect, ReactNode } from 'react';
 import { CartItem, Product } from '@/types';
 
 interface CartContextType {
@@ -15,6 +15,19 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
+
+  // Carrega o carrinho salvo ao iniciar
+  useEffect(() => {
+    const savedCart = localStorage.getItem("cart");
+    if (savedCart) {
+      setCart(JSON.parse(savedCart));
+    }
+  }, []);
+
+  // Salva o carrinho sempre que mudar
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   // Compara id + selectedVariations (como string)
   const isSameItem = (a: CartItem, b: { id: string; selectedVariations?: { [key: string]: string } }) => {

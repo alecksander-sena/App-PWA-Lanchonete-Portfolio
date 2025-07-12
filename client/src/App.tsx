@@ -23,7 +23,6 @@ function App() {
       <TooltipProvider>
         <CartProvider>
           <Toaster />
-          <BannerCarousel /> {/* Adicione aqui, ficará no topo de todas as páginas */}
           <Router />
         </CartProvider>
       </TooltipProvider>

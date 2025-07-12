@@ -10,6 +10,7 @@ import BottomCartBar from "@/components/BottomCartBar";
 import { fetchProducts, categories } from "@/lib/firebase";
 import { Product } from "@/types";
 import { SlidersHorizontal } from "lucide-react";
+import BannerCarousel from "@/components/BannerCarousel";
 
 export default function Home() {
   const { isOpen, showClosedModal, closeModal } = useOpeningHours();
@@ -215,6 +216,8 @@ export default function Home() {
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
       />
+
+      <BannerCarousel /> {/* Carrossel aparece logo abaixo do header */}
 
       <main className="container mx-auto px-4 py-6 relative">
         {/* Produtos */}

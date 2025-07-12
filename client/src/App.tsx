@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import { CartProvider } from "@/context/CartContext";
+import BannerCarousel from "./components/BannerCarousel"; // Adicione esta linha
 
 function Router() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <TooltipProvider>
         <CartProvider>
           <Toaster />
+          <BannerCarousel /> {/* Adicione aqui, ficará no topo de todas as páginas */}
           <Router />
         </CartProvider>
       </TooltipProvider>

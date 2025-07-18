@@ -217,7 +217,7 @@ export default function Home() {
         setSearchQuery={setSearchQuery}
       />
 
-      {/* <BannerCarousel banners={banners} /> // Carrossel aparece logo abaixo do header */}
+      <BannerCarousel banners={banners} /> {/* // Carrossel aparece logo abaixo do header */}
 
       <main className="container mx-auto px-4 py-6 relative">
         {/* Produtos */}

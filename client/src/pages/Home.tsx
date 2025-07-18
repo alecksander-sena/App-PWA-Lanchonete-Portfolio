@@ -167,43 +167,39 @@ export default function Home() {
     6: { nome: "Oferta de Sábado", descricao: "Desconto em todos os combos!" },
   };
   const hoje = new Date().getDay();
-  const ofertaDoDia = ofertas[hoje];
-
-  // Últimos pedidos (Puxa os pedidos do localStorage)
-  const ultimosPedidos = JSON.parse(localStorage.getItem("ultimosPedidos") || "[]");
-
-  // Combos (Puxa os Combos da lista de produtos)
-  const combos = products.filter(p => p.category === "Combos");
 
   const banners = [
-    (
-      <div className="text-yellow-900 font-semibold text-center">
-        <span className="text-lg">🌟 {ofertaDoDia.nome}</span>
-        <br />
-        <span>{ofertaDoDia.descricao}</span>
-      </div>
-    ),
-    ultimosPedidos.length > 0 && (
-      <div className="text-blue-900 font-semibold text-center">
-        <span className="text-lg">🛒 Últimos pedidos</span>
-        <ul className="mt-2">
-          {ultimosPedidos.map((pedido, i) => (
-            <li key={i}>{pedido.nome} <span className="text-xs text-gray-600">({pedido.descricao})</span></li>
-          ))}
-        </ul>
-      </div>
-    ),
-    combos.length > 0 && (
-      <div className="text-green-900 font-semibold text-center">
-        <span className="text-lg">🥪 Combos</span>
-        <ul className="mt-2">
-          {combos.map((combo, i) => (
-            <li key={i}>{combo.name} <span className="text-xs text-gray-600">R$ {combo.price.toFixed(2)}</span></li>
-          ))}
-        </ul>
-      </div>
-    ),
-  ].filter(Boolean); // Remove banners nulos
+    // Oferta do dia (sempre aparece)
+    {
+      image: `/banners/oferta-${hoje}.jpg`,
+      title: [
+        "Domingo de Smash 🍔🔥",
+        "Segunda do salgado 🍩",
+        "Terça da Tapioca 🥥",
+        "Quarta da Dupla 🍔🥤",
+        "Quinta do Cuscuz Nordestino 🌽",
+        "Sexta Combo Family 🍔🥤🍩",
+        "Sábado Delivery Top 🚀"
+      ][hoje],
+      subtitle: "",
+    },
+    // Últimos pedidos (se houver)
+    ...(ultimosPedidos.length > 0
+      ? [{
+          image: "/banners/ultimos-pedidos.jpg",
+          title: "Seus pedidos favoritos 📝",
+          subtitle: "",
+        }]
+      : []),
+    // Combos (se houver)
+    ...(combos.length > 0
+      ? [{
+          image: "/banners/combos.jpg",
+          title: "Monte seu Combo 🍽️",
+          subtitle: "",
+        }]
+      : []),
+  ];
 
   return (
     <div className="bg-gray-50 min-h-screen">

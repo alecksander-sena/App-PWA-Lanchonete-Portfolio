@@ -1,18 +1,16 @@
 import { useEffect, useState } from "react";
 
-interface BannerProps {
-  children: React.ReactNode;
+type Banner = {
+  image: string;
+  title: string;
+  subtitle?: string;
+};
+
+interface BannerRotativoProps {
+  banners: Banner[];
 }
 
-function Banner({ children }: BannerProps) {
-  return (
-    <div className="w-full max-w-2xl h-28 flex items-center justify-center bg-white rounded-xl shadow transition-transform duration-700 ease-in-out px-4">
-      {children}
-    </div>
-  );
-}
-
-export default function BannerRotativo({ banners }: { banners: React.ReactNode[] }) {
+export default function BannerRotativo({ banners }: BannerRotativoProps) {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -33,10 +31,42 @@ export default function BannerRotativo({ banners }: { banners: React.ReactNode[]
       >
         {banners.map((banner, i) => (
           <div key={i} className="w-full flex-shrink-0 flex justify-center">
-            <Banner>{banner}</Banner>
+            <div className="w-full max-w-2xl h-28 flex items-center bg-white rounded-xl shadow px-4">
+              <img
+                src={banner.image}
+                alt={banner.title}
+                className="h-20 w-28 object-cover rounded-lg mr-4"
+              />
+              <div>
+                <div className="font-bold text-lg text-gray-900">{banner.title}</div>
+                {banner.subtitle && (
+                  <div className="text-gray-700 text-sm">{banner.subtitle}</div>
+                )}
+              </div>
+            </div>
           </div>
         ))}
       </div>
     </div>
   );
 }
+
+const banners = [
+  {
+    image: "https://via.placeholder.com/800x200?text=Banner+1",
+    title: "Banner 1",
+    subtitle: "Subtitle for Banner 1",
+  },
+  {
+    image: "https://via.placeholder.com/800x200?text=Banner+2",
+    title: "Banner 2",
+    subtitle: "Subtitle for Banner 2",
+  },
+  {
+    image: "https://via.placeholder.com/800x200?text=Banner+3",
+    title: "Banner 3",
+    subtitle: "Subtitle for Banner 3",
+  },
+];
+
+<BannerRotativo banners={banners} />;

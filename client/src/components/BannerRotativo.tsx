@@ -31,17 +31,25 @@ export default function BannerRotativo({ banners }: BannerRotativoProps) {
       >
         {banners.map((banner, i) => (
           <div key={i} className="w-full flex-shrink-0 flex justify-center">
-            <div className="w-full max-w-2xl h-28 flex items-center bg-white rounded-xl shadow px-4">
+            <div className="w-full max-w-4xl h-56 md:h-72 flex items-center bg-white rounded-2xl shadow-lg px-0 relative overflow-hidden">
               <img
                 src={banner.image}
                 alt={banner.title}
-                className="h-20 w-28 object-cover rounded-lg mr-4"
+                className="h-full w-full object-cover rounded-2xl absolute top-0 left-0 z-0"
               />
-              <div>
-                <div className="font-bold text-lg text-gray-900">{banner.title}</div>
+              <div className="relative z-10 w-full h-full flex flex-col justify-center items-start bg-black/40 p-8 rounded-2xl">
+                <div className="font-bold text-2xl md:text-4xl text-white mb-2 drop-shadow">
+                  {banner.title}
+                </div>
                 {banner.subtitle && (
-                  <div className="text-gray-700 text-sm">{banner.subtitle}</div>
+                  <div className="text-white text-lg mb-4 drop-shadow">
+                    {banner.subtitle}
+                  </div>
                 )}
+                {/* Exemplo de botão de ação */}
+                <button className="bg-yellow-400 text-black px-6 py-2 rounded-lg font-semibold text-lg hover:bg-yellow-300 transition shadow">
+                  Comprar agora
+                </button>
               </div>
             </div>
           </div>

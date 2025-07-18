@@ -1,6 +1,6 @@
 import { useOpeningHours } from "../hooks/useOpeningHours";
 import ClosedModal from "../components/ClosedModal";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Header from "@/components/Header";
 import ProductGrid from "@/components/ProductGrid";
 import CartDrawer from "@/components/CartDrawer";
@@ -171,17 +171,17 @@ export default function Home() {
   const ultimosPedidos = JSON.parse(localStorage.getItem("ultimosPedidos") || "[]");
   const combos = products.filter(p => p.category === "Combos");
 
-  const banners = [
+  const banners = useMemo(() => [
     {
       image: `/banners/oferta-${hoje}.jpg`,
       title: [
-        "Domingo de Smash 🍔🔥",
-        "Segunda do salgado 🍩",
-        "Terça da Tapioca 🥥",
-        "Quarta da Dupla 🍔🥤",
-        "Quinta do Cuscuz Nordestino 🌽",
-        "Sexta Combo Family 🍔🥤🍩",
-        "Sábado Delivery Top 🚀"
+        "Domingo de Smash",
+        "Segunda do salgado",
+        "Terça da Tapioca",
+        "Quarta da Dupla",
+        "Quinta do Cuscuz Nordestino",
+        "Sexta Combo Família",
+        "Sábado Delivery Top"
       ][hoje],
       subtitle: "",
     },
@@ -199,7 +199,7 @@ export default function Home() {
           subtitle: "",
         }]
       : []),
-  ];
+  ], [hoje, ultimosPedidos.length, combos.length]);
 
   return (
     <div className="bg-gray-50 min-h-screen">

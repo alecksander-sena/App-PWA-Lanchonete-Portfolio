@@ -21,7 +21,7 @@ export default function BannerRotativo({ banners }: BannerRotativoProps) {
   }, [banners.length]);
 
   return (
-    <div className="w-full flex justify-center items-center overflow-hidden mb-6 relative">
+    <div className="w-full flex flex-col justify-center items-center overflow-hidden mb-6 relative">
       <div
         className="flex transition-transform duration-700"
         style={{
@@ -53,6 +53,19 @@ export default function BannerRotativo({ banners }: BannerRotativoProps) {
               </div>
             </div>
           </div>
+        ))}
+      </div>
+      {/* Indicadores (bolinhas) */}
+      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+        {banners.map((_, i) => (
+          <button
+            key={i}
+            className={`w-3 h-3 rounded-full transition-all duration-300 border border-white/70 ${
+              index === i ? "bg-white/80" : "bg-white/40"
+            }`}
+            onClick={() => setIndex(i)}
+            aria-label={`Ir para o banner ${i + 1}`}
+          />
         ))}
       </div>
     </div>

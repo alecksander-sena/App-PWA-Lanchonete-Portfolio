@@ -289,3 +289,11 @@ export default function Home() {
     </div>
   );
 }
+
+// Simule os dados ou busque do localStorage/backend
+const ultimosPedidos = [
+  { nome: "Hambúrguer Artesanal", descricao: "Pedido feito há 2h" }
+];
+const combos = [
+  { name: "Combo Família", price: 39.9 }
+];

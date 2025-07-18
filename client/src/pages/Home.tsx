@@ -168,8 +168,10 @@ export default function Home() {
   };
   const hoje = new Date().getDay();
 
+  const ultimosPedidos = JSON.parse(localStorage.getItem("ultimosPedidos") || "[]");
+  const combos = products.filter(p => p.category === "Combos");
+
   const banners = [
-    // Oferta do dia (sempre aparece)
     {
       image: `/banners/oferta-${hoje}.jpg`,
       title: [
@@ -183,7 +185,6 @@ export default function Home() {
       ][hoje],
       subtitle: "",
     },
-    // Últimos pedidos (se houver)
     ...(ultimosPedidos.length > 0
       ? [{
           image: "/banners/ultimos-pedidos.jpg",
@@ -191,7 +192,6 @@ export default function Home() {
           subtitle: "",
         }]
       : []),
-    // Combos (se houver)
     ...(combos.length > 0
       ? [{
           image: "/banners/combos.jpg",
@@ -289,11 +289,3 @@ export default function Home() {
     </div>
   );
 }
-
-// Simule os dados ou busque do localStorage/backend
-const ultimosPedidos = [
-  { nome: "Hambúrguer Artesanal", descricao: "Pedido feito há 2h" }
-];
-const combos = [
-  { name: "Combo Família", price: 39.9 }
-];

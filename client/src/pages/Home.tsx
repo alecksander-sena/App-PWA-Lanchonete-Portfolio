@@ -10,7 +10,8 @@ import BottomCartBar from "@/components/BottomCartBar";
 import { fetchProducts, categories } from "@/lib/firebase";
 import { Product } from "@/types";
 import { SlidersHorizontal } from "lucide-react";
-import BannerCarousel from "@/components/BannerCarousel";
+import BannerRotativo from "@/components/BannerRotativo";
+
 
 export default function Home() {
   const { isOpen, showClosedModal, closeModal } = useOpeningHours();
@@ -174,16 +175,16 @@ export default function Home() {
   // Combos (Puxa os Combos da lista de produtos)
   const combos = products.filter(p => p.category === "Combos");
 
-  const bannerElements = [
+  const banners = [
     (
-      <div className="bg-yellow-100 text-yellow-900 rounded-lg shadow p-4 text-center font-semibold">
+      <div className="text-yellow-900 font-semibold text-center">
         <span className="text-lg">🌟 {ofertaDoDia.nome}</span>
         <br />
         <span>{ofertaDoDia.descricao}</span>
       </div>
     ),
-    ultimosPedidos.length > 0 ? (
-      <div className="bg-blue-100 text-blue-900 rounded-lg shadow p-4 text-center font-semibold">
+    ultimosPedidos.length > 0 && (
+      <div className="text-blue-900 font-semibold text-center">
         <span className="text-lg">🛒 Últimos pedidos</span>
         <ul className="mt-2">
           {ultimosPedidos.map((pedido, i) => (
@@ -191,9 +192,9 @@ export default function Home() {
           ))}
         </ul>
       </div>
-    ) : null,
-    combos.length > 0 ? (
-      <div className="bg-green-100 text-green-900 rounded-lg shadow p-4 text-center font-semibold">
+    ),
+    combos.length > 0 && (
+      <div className="text-green-900 font-semibold text-center">
         <span className="text-lg">🥪 Combos</span>
         <ul className="mt-2">
           {combos.map((combo, i) => (
@@ -201,7 +202,7 @@ export default function Home() {
           ))}
         </ul>
       </div>
-    ) : null,
+    ),
   ].filter(Boolean); // Remove banners nulos
 
   return (
@@ -217,7 +218,7 @@ export default function Home() {
         setSearchQuery={setSearchQuery}
       />
 
-      {/* <BannerCarousel banners={banners} /> // Carrossel aparece logo abaixo do header */}
+      <BannerRotativo banners={banners} />
 
       <main className="container mx-auto px-4 py-6 relative">
         {/* Produtos */}

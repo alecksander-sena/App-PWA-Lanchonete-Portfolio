@@ -50,23 +50,3 @@ export default function BannerRotativo({ banners }: BannerRotativoProps) {
     </div>
   );
 }
-
-const banners = [
-  {
-    image: "https://via.placeholder.com/800x200?text=Banner+1",
-    title: "Banner 1",
-    subtitle: "Subtitle for Banner 1",
-  },
-  {
-    image: "https://via.placeholder.com/800x200?text=Banner+2",
-    title: "Banner 2",
-    subtitle: "Subtitle for Banner 2",
-  },
-  {
-    image: "https://via.placeholder.com/800x200?text=Banner+3",
-    title: "Banner 3",
-    subtitle: "Subtitle for Banner 3",
-  },
-];
-
-<BannerRotativo banners={banners} />;

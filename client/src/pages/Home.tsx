@@ -214,7 +214,9 @@ export default function Home() {
         setSearchQuery={setSearchQuery}
       />
 
-      <BannerRotativo banners={banners} />
+      {/*<div className="mt-8">
+        <BannerRotativo banners={banners} />
+      </div>*/}
 
       <main className="container mx-auto px-4 py-6 relative">
         {/* Produtos */}

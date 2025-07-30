@@ -67,7 +67,7 @@ export default function Header({
             style={{ background: "#fff" }}
           />
           <span className="font-sans font-bold text-lg md:text-2xl text-black truncate">
-            Pedidos Fácil
+            Bom Sabor
           </span>
         </div>
 

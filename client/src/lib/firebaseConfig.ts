@@ -1,16 +1,18 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
-// Configuração do Firebase do seu aplicativo web
+// client/src/lib/firebaseConfig.ts
+
 const firebaseConfig = {
-  apiKey: "AIzaSyDFmQhT4nHI27ezkvxpFC7i2igJt0JXng8",
-  authDomain: "lanchonete-bom-sabor-portfolio.firebaseapp.com",
-  projectId: "lanchonete-bom-sabor-portfolio",
-  storageBucket: "lanchonete-bom-sabor-portfolio.firebasestorage.app",
-  messagingSenderId: "708974387697",
-  appId: "1:708974387697:web:7165934a7857459b62a450",
-  measurementId: "G-HVS9YSTBXL"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY, // <-- Agora usa a variável
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
+
+export default firebaseConfig;
 
 // Inicializar Firebase
 const app = initializeApp(firebaseConfig);

@@ -2,13 +2,14 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 // Configuração do Firebase do seu aplicativo web
-const firebaseConfig = { 
-  apiKey: "AIzaSyB_37MvU0kfUhHxrwUlrrsIjLW833pfMeU", 
-  authDomain: "pedidos-facil.firebaseapp.com",
-  projectId: "pedidos-facil",
-  storageBucket: "pedidos-facil.appspot.com", // <-- corrigido aqui
-  messagingSenderId: "827914740118", 
-  appId: "1:827914740118:web:90df7bcafe65e30cee7db7" 
+const firebaseConfig = {
+  apiKey: "AIzaSyDFmQhT4nHI27ezkvxpFC7i2igJt0JXng8",
+  authDomain: "lanchonete-bom-sabor-portfolio.firebaseapp.com",
+  projectId: "lanchonete-bom-sabor-portfolio",
+  storageBucket: "lanchonete-bom-sabor-portfolio.firebasestorage.app",
+  messagingSenderId: "708974387697",
+  appId: "1:708974387697:web:7165934a7857459b62a450",
+  measurementId: "G-HVS9YSTBXL"
 };
 
 // Inicializar Firebase
